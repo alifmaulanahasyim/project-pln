@@ -143,7 +143,7 @@
                     <div class="row mb-3">
                         <div class="col-md-4"><strong><i class="fas fa-venus-mars"></i> Jenis Kelamin:</strong></div>
                         <div class="col-md-8">
-                            @if($record->jeniskelamin == 'Laki-laki')
+                            @if($record->jeniskelamin == 'laki-laki')
                                 <span class="gender-icon male"><i class="fas fa-mars"></i></span>
                             @else
                                 <span class="gender-icon female"><i class="fas fa-venus"></i></span>
