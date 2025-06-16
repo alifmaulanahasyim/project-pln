@@ -121,7 +121,7 @@
             <!-- Personal Information Card -->
             <section class="card mb-4">
                 <div class="card-header">
-                    <h2 class="h5 mb-0"><i class="fas fa-user"></i> Informasi Pribadi Ketua Tim</h2>
+                    <h2 class="h5 mb-0"><i class="fas fa-user"></i> Informasi Ketua Tim</h2>
                 </div>
                 <div class="card-body">
                     <div class="row mb-3">
@@ -159,61 +159,70 @@
             </section>
 
           <!-- Team Members Card -->
-            <section class="mb-4">
-                <h2 class="section-title text-center mb-4"><i class="fas fa-users"></i> Anggota Tim</h2>
-                
-                @php
-                    $members = [
-                        ['nama' => $record->nama2 ?? null, 'nim' => $record->nim2 ?? null, 'jeniskelamin' => $record->jeniskelamin2 ?? null],
-                        ['nama' => $record->nama3 ?? null, 'nim' => $record->nim3 ?? null, 'jeniskelamin' => $record->jeniskelamin3 ?? null],
-                        ['nama' => $record->nama4 ?? null, 'nim' => $record->nim4 ?? null, 'jeniskelamin' => $record->jeniskelamin4 ?? null],
-                        ['nama' => $record->nama5 ?? null, 'nim' => $record->nim5 ?? null, 'jeniskelamin' => $record->jeniskelamin5 ?? null],
-                        ['nama' => $record->nama6 ?? null, 'nim' => $record->nim6 ?? null, 'jeniskelamin' => $record->jeniskelamin6 ?? null],
-                        ['nama' => $record->nama7 ?? null, 'nim' => $record->nim7 ?? null, 'jeniskelamin' => $record->jeniskelamin7 ?? null],
-                    ];
-                @endphp
+<section class="mb-4">
+    <h2 class="section-title text-center mb-4"><i class="fas fa-users"></i> Anggota Tim</h2>
+    @php
+        $members = [
+            ['nama' => $record->nama2 ?? null, 'nim' => $record->nim2 ?? null, 'jeniskelamin' => $record->jeniskelamin2 ?? null],
+            ['nama' => $record->nama3 ?? null, 'nim' => $record->nim3 ?? null, 'jeniskelamin' => $record->jeniskelamin3 ?? null],
+            ['nama' => $record->nama4 ?? null, 'nim' => $record->nim4 ?? null, 'jeniskelamin' => $record->jeniskelamin4 ?? null],
+            ['nama' => $record->nama5 ?? null, 'nim' => $record->nim5 ?? null, 'jeniskelamin' => $record->jeniskelamin5 ?? null],
+            ['nama' => $record->nama6 ?? null, 'nim' => $record->nim6 ?? null, 'jeniskelamin' => $record->jeniskelamin6 ?? null],
+            ['nama' => $record->nama7 ?? null, 'nim' => $record->nim7 ?? null, 'jeniskelamin' => $record->jeniskelamin7 ?? null],
+        ];
 
-                <div class="row">
-                    @foreach($members as $index => $member)
-                        @if($member['nama'] || $member['nim'] || $member['jeniskelamin'])
-                            <div class="col-md-4 mb-4">
-                                <div class="card shadow-sm border-light">
-                                    <div class="card-header text-center">
-                                        <h3 class="h6"><i class="fas fa-user-friends"></i> Anggota {{ $index + 1 }}</h3>
-                                    </div>
-                                    <div class="card-body">
-                                        @if($member['nama'])
-                                            <div class="info-row mb-2">
-                                                <strong><i class="fas fa-id-card"></i> Nama:</strong>
-                                                <span>{{ $member['nama'] }}</span>
-                                            </div>
-                                        @endif
-                                        @if($member['nim'])
-                                            <div class="info-row mb-2">
-                                                <strong><i class="fas fa-graduation-cap"></i> NIM:</strong>
-                                                <span>{{ $member['nim'] }}</span>
-                                            </div>
-                                        @endif
-                                        @if($member['jeniskelamin'])
-                                            <div class="info-row mb-2">
-                                                <strong><i class="fas fa-venus-mars"></i> Jenis Kelamin:</strong>
-                                                <span>
-                                                    @if($member['jeniskelamin'] == 'Laki-laki')
-                                                        <span class="gender-icon male"><i class="fas fa-mars"></i></span>
-                                                    @else
-                                                        <span class="gender-icon female"><i class="fas fa-venus"></i></span>
-                                                    @endif
-                                                    {{ $member['jeniskelamin'] }}
-                                                </span>
-                                            </div>
-                                        @endif
-                                    </div>
-                                </div>
+        $hasMember = collect($members)->contains(function ($member) {
+            return $member['nama'] || $member['nim'] || $member['jeniskelamin'];
+        });
+    @endphp
+
+    @if($hasMember)
+        <div class="row">
+            @foreach($members as $index => $member)
+                @if($member['nama'] || $member['nim'] || $member['jeniskelamin'])
+                    <div class="col-md-4 mb-4">
+                        <div class="card shadow-sm border-light">
+                            <div class="card-header text-center">
+                                <h3 class="h6"><i class="fas fa-user-friends"></i> Anggota {{ $index + 1 }}</h3>
                             </div>
-                        @endif
-                    @endforeach
-                </div>
-            </section>
+                            <div class="card-body">
+                                @if($member['nama'])
+                                    <div class="info-row mb-2">
+                                        <strong><i class="fas fa-id-card"></i> Nama:</strong>
+                                        <span>{{ $member['nama'] }}</span>
+                                    </div>
+                                @endif
+                                @if($member['nim'])
+                                    <div class="info-row mb-2">
+                                        <strong><i class="fas fa-graduation-cap"></i> NIM:</strong>
+                                        <span>{{ $member['nim'] }}</span>
+                                    </div>
+                                @endif
+                                @if($member['jeniskelamin'])
+                                    <div class="info-row mb-2">
+                                        <strong><i class="fas fa-venus-mars"></i> Jenis Kelamin:</strong>
+                                        <span>
+                                            @if($member['jeniskelamin'] == 'Laki-laki')
+                                                <span class="gender-icon male"><i class="fas fa-mars"></i></span>
+                                            @else
+                                                <span class="gender-icon female"><i class="fas fa-venus"></i></span>
+                                            @endif
+                                            {{ $member['jeniskelamin'] }}
+                                        </span>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            @endforeach
+        </div>
+    @else
+        <div class="alert alert-warning text-center">
+            <i class="fas fa-info-circle"></i> Tidak ada anggota tim.
+        </div>
+    @endif
+</section>
 
             <!-- Return Button -->
             <div class="mt-4 text-right">
