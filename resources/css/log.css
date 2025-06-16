@@ -1,0 +1,148 @@
+:root {
+    --pln-yellow: #f7b731;
+    --pln-blue: #2b4c7e;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url("/api/placeholder/1920/1080") center/cover no-repeat;
+}
+
+.login-container {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.login-header .icon {
+    font-size: 3rem;
+    color: var(--pln-yellow);
+    margin-bottom: 1rem;
+}
+
+.login-header h1 {
+    color: var(--pln-blue);
+    font-size: 1.8rem;
+    margin-top: 0.5rem;
+}
+
+/* Animasi FadeIn untuk muncul perlahan */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.error-message {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: bold;
+    animation: fadeIn 0.5s ease-in-out; /* Muncul perlahan */
+    animation-fill-mode: forwards;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.form-group i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.8rem 1rem 0.8rem 2.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--pln-yellow);
+    box-shadow: 0 0 0 2px rgba(247, 183, 49, 0.2);
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    color: #666;
+}
+
+.remember-me input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--pln-yellow);
+}
+
+.login-button {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--pln-yellow);
+    border: none;
+    border-radius: 5px;
+    color: #333;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.login-button:hover {
+    background-color: #e5a82c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(247, 183, 49, 0.3);
+}
+
+@media (max-width: 768px) {
+    .login-container {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+
+    .login-header .icon {
+        font-size: 2.5rem;
+    }
+
+    .login-header h1 {
+        font-size: 1.5rem;
+    }
+}

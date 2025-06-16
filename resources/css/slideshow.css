@@ -1,0 +1,23 @@
+/* resources/css/slideshow.css */
+
+/* Slideshow Background */
+@keyframes slideShow {
+    0% {
+        background-image: url("/img/viewpln.jpeg");
+    }
+    33% {
+        background-image: url("/img/viewpln2.jpeg");
+    }
+    66% {
+        background-image: url("/img/viewpln.jpeg");
+    }
+    100% {
+        background-image: url("/img/viewpln2.jpeg");
+    }
+}
+
+.slideshow-bg {
+    animation: slideShow 12s infinite; /* Durasi 12 detik */
+    background-size: cover;
+    background-position: center;
+}

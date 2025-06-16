@@ -1,0 +1,112 @@
+
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2c3e50;
+    --accent-color: #f39c12;
+    --light-bg: #f8f9fa;
+    --border-radius: 8px;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--light-bg);
+    color: #333;
+}
+
+.page-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 2rem 0;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.page-title {
+    font-weight: 600;
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+    font-weight: 300;
+    opacity: 0.9;
+}
+
+.card-container {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+#movedMahasiswaTable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+#movedMahasiswaTable thead {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+#movedMahasiswaTable th {
+    padding: 15px;
+    font-weight: 500;
+    border-bottom: none;
+}
+
+#movedMahasiswaTable td {
+    padding: 12px 15px;
+    vertical-align: middle;
+}
+
+#movedMahasiswaTable tbody tr:hover {
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+.view-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 4px;
+    background-color: rgba(52, 152, 219, 0.1);
+    transition: all 0.3s ease;
+}
+
+.view-link:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.empty-state {
+    padding: 3rem;
+    text-align: center;
+}
+
+.empty-state i {
+    font-size: 3rem;
+    color: #ccc;
+    margin-bottom: 1rem;
+}
+
+.empty-state p {
+    font-size: 1.1rem;
+    color: #777;
+}
+
+.badge-divisi {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}

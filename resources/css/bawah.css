@@ -1,0 +1,195 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.footer {
+    background-color: #272727;
+    color: white;
+    padding: 40px 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+    flex-wrap: wrap;
+}
+
+.footer-left,
+.footer-middle,
+.footer-right {
+    flex: 1;
+    min-width: 280px;
+    margin: 10px;
+}
+
+.footer-left .logo {
+    width: 250px;
+    margin-bottom: 10px;
+}
+
+.footer-left h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.footer-left p {
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+}
+
+.footer-left i {
+    margin-right: 10px;
+}
+
+.footer-middle h3,
+.footer-right h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.social-icons a {
+    color: white;
+    font-size: 24px;
+    margin-right: 15px;
+    text-decoration: none;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Atur jarak antara ikon dan teks */
+    color: white; /* Warna awal putih */
+    text-decoration: none; /* Menghilangkan garis bawah */
+    transition: color 0.3s ease-in-out; /* Animasi perubahan warna */
+}
+
+.icon {
+    color: #d4af37; /* Warna kuning tua (Gold) */
+    font-size: 20px;
+}
+
+.white-text {
+    color: white;
+}
+
+.no-underline {
+    text-decoration: none;
+}
+
+.social-icons a:hover {
+    color: #ffcc00;
+}
+
+.footer-right .wrapper {
+    display: flex;
+    justify-content: left;
+    gap: 20px;
+    margin-top: 10px; /* Menyesuaikan posisi di bawah "Lokasi Kami" */
+}
+
+.footer-right .icons {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.footer-right .icons .tooltip {
+    position: absolute;
+    top: -50px; /* Menyesuaikan posisi tooltip agar berada sedikit di atas tombol */
+    left: 50%; /* Mengatur posisi tooltip agar berada di tengah */
+    transform: translateX(
+        -50%
+    ); /* Menggeser tooltip untuk benar-benar berada di tengah */
+    background: #ffffff; /* Latar belakang tooltip putih */
+    color: #000000; /* Teks tooltip hitam */
+    font-size: 14px;
+    padding: 8px 15px;
+    border-radius: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    white-space: nowrap;
+    text-align: center; /* Memastikan teks berada di tengah */
+}
+
+.footer-right .icons:hover .tooltip {
+    opacity: 1;
+}
+
+.footer-right .icons span {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    background-color: rgb(177, 177, 177); /* Latar belakang tombol putih */
+    color: black; /* Warna teks hitam */
+    transition: background-color 0.3s, color 0.3s; /* Animasi perubahan warna saat hover */
+}
+
+/* Warna ikon berubah saat hover */
+.footer-right .icons.facebook:hover span {
+    background: #1877f2; /* Biru Facebook */
+    filter: grayscale(0%);
+}
+
+.footer-right .icons.instagram:hover span {
+    background: #e1306c; /* Pink Instagram */
+    filter: grayscale(0%);
+}
+
+.footer-right .icons.youtube:hover span {
+    background: #ff0000; /* Merah YouTube */
+    filter: grayscale(0%);
+}
+
+.footer-right .wrapper a {
+    display: inline-block;
+    text-decoration: none; /* Menghilangkan garis bawah */
+}
+
+.footer-right .icons span i {
+    font-size: 20px;
+    color: black; /* Ikon berwarna hitam awalnya */
+    transition: color 0.3s ease; /* Animasi perubahan warna */
+}
+
+.footer-right .icons a:hover span i {
+    color: white; /* Warna ikon tetap tidak berubah saat hover */
+}
+
+/* Hover state untuk tombol */
+.footer-right .icons:hover span {
+    background-color: #ffffff; /* Tetap putih */
+    color: #ffffff; /* Tetap hitam */
+}
+
+.footer-right .icons :hover span i {
+    color: white; /* Warna ikon tetap tidak berubah saat hover */
+}
+.footer-middle {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.alamat-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.icon {
+    color: #FFD700;
+    font-size: 20px;
+}

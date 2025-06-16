@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.logout-form {
+    display: inline;
+}
+
+.logout-button {
+    background-color: #f0ad4e;  /* Soft orange (similar to Bootstrap warning) */
+    color: #212529;             /* Dark text for contrast */
+    border: none;
+    padding: 8px 16px;
+    border-radius: 999px;       /* Pill shape */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.logout-button:hover {
+    background-color: #ec9f36;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.logout-button:active {
+    transform: scale(0.97);
+}
+
+.logout-button .icon {
+    font-size: 16px;
+    display: inline-block;
+}
