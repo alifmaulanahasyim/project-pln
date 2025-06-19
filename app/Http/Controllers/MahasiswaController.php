@@ -8,6 +8,7 @@ use App\Models\MovedMahasiswa; // Import the MovedMahasiswa model
 use App\Models\Histori; // Import the Histori model
 use Illuminate\Http\Request;
 use App\Models\Dashboard;
+use Illuminate\Support\Facades\Auth;
 
 class MahasiswaController extends Controller
 {
@@ -51,7 +52,11 @@ class MahasiswaController extends Controller
     }
 
     public function tambahform() {
-        return view('form');
+        $alreadyInserted = false;
+        if (Auth::check()) {
+            $alreadyInserted = Mahasiswa::where('user_id', Auth::user()->id)->exists();
+        }
+        return view('form', compact('alreadyInserted'));
     }
 
     public function detail($nim)
@@ -111,6 +116,10 @@ class MahasiswaController extends Controller
 
     // Simpan data mahasiswa
     $mahasiswa = new Mahasiswa($request->all());
+    // Set user_id sesuai user yang login
+    if (Auth::check()) {
+        $mahasiswa->user_id = Auth::user()->id;
+    }
     $mahasiswa->save();
 
     return redirect()->route('home')->with('success', "Data berhasil ditambahkan! Jumlah anggota yang mengisi: $anggotaCount");
@@ -127,48 +136,7 @@ class MahasiswaController extends Controller
 
         return view('tampilform', compact('data'));
     }
-    // public function updateform(Request $request, $nim) {
-    
-    //     // Validate the incoming request data
-    //     $request->validate([
-    //         'email' => 'required|email',
-    //         'nama' => 'required|string|max:255',
-    //         'nim2' => 'nullable|string',
-    //         'nim3' => 'nullable|string',
-    //         'nim4' => 'nullable|string',
-    //         'nim5' => 'nullable|string',
-    //         'nim6' => 'nullable|string',
-    //         'nim7' => 'nullable|string',
-    //         'jeniskelamin' => 'required|in:laki-laki,perempuan',
-    //         'jeniskelamin2' => 'nullable|in:laki-laki,perempuan',
-    //         'jeniskelamin3' => 'nullable|in:laki-laki,perempuan',
-    //         'jeniskelamin4' => 'nullable|in:laki-laki,perempuan',
-    //         'jeniskelamin5' => 'nullable|in:laki-laki,perempuan',
-    //         'jeniskelamin6' => 'nullable|in:laki-laki,perempuan',
-    //         'jeniskelamin7' => 'nullable|in:laki-laki,perempuan',
-    //         'nama_institusi' => 'required|string',
-    //         'jurusan' => 'required|string',
-    //         'nohp' => 'required|string|max:15',
-    //         'semester' => 'required|string',
-    //         'alasan' => 'required|string',
-    //         'divisi' => 'required|string',
-    //         'linkfoto' => 'required|url',
-    //         'linksurat' => 'required|url',
-    //         'mulai_magang' => 'nullable|date',
-    //         'selesai_magang' => 'nullable|date',
-    //     ]);
-    
-    //     // Find the mahasiswa by NIM and update the data
-    //     $mahasiswa = Mahasiswa::where('nim', $nim)->first();
-    //     if ($mahasiswa) {
-    //         $mahasiswa->update($request->all());
-    //         return redirect()->route('data')->with('success', 'Data berhasil diperbarui');
-    //     }
-    
-    //     // If mahasiswa not found, redirect with error message
-    //     return redirect()->route('data')->with('error', 'Mahasiswa tidak ditemukan');
-    // }
-
+   
     public function updateform(Request $request, $nim) {
         // Validate the incoming request data
         $request->validate([

@@ -50,7 +50,7 @@
                         <i class="fas fa-clipboard-list text-4xl text-blue-200 mb-4"></i>
                     </div>
                     <h1 class="text-center text-4xl font-bold">Detail Pendaftaran Magang</h1>
-                    <p class="text-center mt-3 text-blue-100 text-lg">PT. PLN Nusantara Power Unit Pembangkit Belawan</p>
+                    <p class="text-center mt-3 text-blue-100 text-lg">PT PLN Nusantara Power Unit Pembangkit Belawan</p>
                 </div>
             </div>
 

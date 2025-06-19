@@ -39,7 +39,7 @@
     <div class="container my-4">
         <header class="text-center mb-4">
             <h1 class="display-4 text-warning">Edit Detail Mahasiswa Magang</h1>
-            <p class="lead text-secondary">PT. PLN Nusantara Power Unit Pembangkit Belawan</p>
+            <p class="lead text-secondary">PT PLN Nusantara Power Unit Pembangkit Belawan</p>
         </header>
 
         <main>

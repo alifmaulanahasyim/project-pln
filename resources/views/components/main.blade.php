@@ -24,16 +24,29 @@
     <div class="absolute inset-0 bg-black opacity-50"></div>
     <div class="relative text-center z-10">
       <h1 class="text-balance text-3xl font-semibold tracking-tight text-white sm:text-5xl">
-        PT. PLN Nusantara Power Unit Pembangkit Belawan <br> Sistem Informasi Penerimaan Mahasiswa Magang 
+        PT PLN Nusantara Power Unit Pembangkit Belawan <br> Sistem Informasi Penerimaan Mahasiswa Magang 
       </h1>
       <p class="mt-8 text-pretty text-base font-medium text-gray-300 sm:text-lg/6">
-        Isi formulir dibawah ini jika ingin melaksanakan magang di PT. PLN Nusantara Power UP Belawan
+        Isi formulir dibawah ini jika ingin melaksanakan magang di PT PLN Nusantara Power UP Belawan
       </p>
+      @php
+          use Illuminate\Support\Facades\Auth;
+          use App\Models\Mahasiswa;
+          $alreadyInserted = false;
+          if (Auth::check()) {
+              $alreadyInserted = Mahasiswa::where('user_id', Auth::user()->id)->exists();
+          }
+      @endphp
       <div class="mt-10 flex items-center justify-center gap-x-6">
-        <a href="#" @click.prevent="open = true" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-          Isi Formulir
-        </a>
-        
+          @if ($alreadyInserted)
+              <span class="rounded-md bg-green-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm">
+                  Anda sudah memasukkan data mahasiswa magang, Silahkan tunggu proses verifikasi dari admin.
+              </span>
+          @else
+              <a href="#" @click.prevent="open = true" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                  Isi Formulir
+              </a>
+          @endif
       </div>
     </div>
 

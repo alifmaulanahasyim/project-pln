@@ -15,30 +15,40 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login');
     }
 
-public function store(Request $request): RedirectResponse
-{
-    $credentials = $request->validate([
-        'email' => ['required', 'email'],
-        'password' => ['required'],
-    ]);
+    public function store(Request $request): RedirectResponse
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
 
-    if (Auth::attempt($credentials, $request->filled('remember'))) {
-        $request->session()->regenerate();
+        if (Auth::attempt($credentials, $request->filled('remember'))) {
+            $request->session()->regenerate();
 
-        $user = Auth::user();
+            $user = Auth::user();
 
-        // Redirect based on role
-        if ($user->role === 'admin') {
-            return redirect('/data'); // Admin dashboard
-        } else {
-            return redirect('/'); // Mahasiswa home page
+            // Tambahkan session khusus untuk mahasiswa yang memiliki user_id sesuai id user yang login
+            $mahasiswa = \App\Models\Mahasiswa::where('user_id', $user->id)->first();
+            if ($mahasiswa) {
+                session([
+                    'mahasiswa_user_id' => $user->id,
+                    'mahasiswa_id' => $mahasiswa->user_id, // user_id pada tabel mahasiswas
+                    'mahasiswa_data' => $mahasiswa,
+                ]);
+            }
+
+            // Redirect based on role
+            if ($user->role === 'admin') {
+                return redirect('/data'); // Admin dashboard
+            } else {
+                return redirect('/'); // Mahasiswa home page
+            }
         }
-    }
 
-    return back()->withErrors([
-        'email' => 'The provided credentials do not match our records.',
-    ])->onlyInput('email');
-}
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
+    }
 
 
     public function destroy(Request $request): RedirectResponse

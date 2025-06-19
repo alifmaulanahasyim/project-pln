@@ -17,7 +17,7 @@
         <div class="container">
             <div class="footer-left">
                 <img src="img/logopln21.png" alt="Logo PLN" class="logo">
-                <h2>PT. PLN Nusantara Power Unit Pembangkit Belawan</h2>
+                <h2>PT PLN Nusantara Power Unit Pembangkit Belawan</h2>
                 <p class="contact-item">
                     <i class="ri-phone-line icon"></i>
                     <a href="https://wa.me/6282167688834" target="_blank">

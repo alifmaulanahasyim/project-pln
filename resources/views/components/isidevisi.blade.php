@@ -13,7 +13,7 @@
 <body>
   <div class="bg-white shadow-sm py-4 px-4 text-center mb-6">
     <h2 class="text-3xl font-bold">DIVISI</h2>
-    <p class="text-lg">PT. PLN Nusantara Power Unit Pembangkit Belawan</p>
+    <p class="text-lg">PT PLN Nusantara Power Unit Pembangkit Belawan</p>
   </div>
     <main class="max-w-7xl mx-auto px-4 py-2">
         

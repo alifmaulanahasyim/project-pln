@@ -17,7 +17,7 @@
             <!-- Header Section -->
             <div class="bg-gradient-to-r from-blue-600 to-blue-700 p-6 text-white">
                 <h1 class="text-center text-3xl font-bold">Edit Formulir Pendaftaran Magang</h1>
-                <p class="text-center mt-2 text-blue-100">PT. PLN Nusantara Power Unit Pembangkit Belawan</p>
+                <p class="text-center mt-2 text-blue-100">PT PLN Nusantara Power Unit Pembangkit Belawan</p>
             </div>
 
             <form id="data-pendaftaran-form" action="/updateform/{{$data->nim}}" method="POST" enctype="multipart/form-data" class="p-8">
@@ -266,7 +266,7 @@
             .then(data => {
                 if (data.nohp) {
                     const phoneNumber = data.nohp.replace(/^0/, '62'); // Replace starting 0 with 62
-                    const message = "Selamat anda telah diterima magang di PT. PLN Nusantara Power Unit Pembangkit Belawan";
+                    const message = "Selamat anda telah diterima magang di PT PLN Nusantara Power Unit Pembangkit Belawan";
                     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
                     window.open(whatsappUrl, '_blank');

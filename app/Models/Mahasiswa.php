@@ -20,6 +20,12 @@ class Mahasiswa extends Model
     public $incrementing = false; // NIM is not auto-incrementing
     protected $keyType = 'string'; // If NIM is a string
 
+    // Relasi ke tabel users
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
     // Define the relationship with the Histori model
     
 
