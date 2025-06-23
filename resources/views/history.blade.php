@@ -14,7 +14,7 @@
     <div class="container-fluid">
         <div class="text-center my-4">
             <h1 class="page-title">History Mahasiswa Magang</h1>
-            <div class="text-center mb-4">
+            <div class="flex flex-wrap justify-center gap-4 mb-6">
                 <button class="btn btn-primary mx-2 px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition duration-200 flex items-center">
                     <i class="fas fa-sort-amount-down-alt mr-2"></i> Sort Newest
                 </button>
@@ -27,7 +27,7 @@
             <table class="table table-hover" id="mahasiswaTable">
                 <thead>
                     <tr class="text-center">
-                        <th>No</th>
+                        <th>User ID</th>
                         <th>Email</th>
                         <th>Nama Ketua Tim</th>
                         <th>Jenis Kelamin</th>
@@ -41,7 +41,7 @@
                 <tbody>
                     @foreach ($movedRecords as $index => $row)
                     <tr class="text-center" data-date="{{ $row->created_at }}">
-                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $row->user_id ?? '-' }}</td> <!-- Display User ID -->
                         <td>{{ $row->email }}</td>
                         <td>{{ $row->nama }}</td>
                         <td>{{ $row->jeniskelamin }}</td>

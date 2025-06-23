@@ -27,13 +27,17 @@ class AdminController extends Controller
             $data['password'] = bcrypt($request->password);
         }
         $user->update($data);
-        return redirect()->route('admin.users')->with('success', 'User updated successfully');
+        return redirect()->route('admin.users')->with('success', 'User berhasil diperbarui');
     }
 
     public function deleteUser($id)
     {
-        $user = User::findOrFail($id);
-        $user->delete();
-        return redirect()->route('admin.users')->with('success', 'User deleted successfully');
+        $user = User::find($id);
+        if ($user) {
+            $user->delete();
+            return redirect()->route('admin.users')->with('success', 'User berhasil dihapus');
+        }
+        return redirect()->route('admin.users')->with('error', 'User not found');
     }
+    
 }

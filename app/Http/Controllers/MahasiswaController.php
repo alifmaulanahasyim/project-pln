@@ -19,7 +19,8 @@ class MahasiswaController extends Controller
         $data = Mahasiswa::all();
         $newData = Mahasiswa::where('status', 'Pending')->orderBy('created_at', 'desc')->get();
         $users = User::all();
-        return view("data", compact('data', 'newData', 'users'));
+        $newDataCount = $newData->count();
+        return view("data", compact('data', 'newData', 'users', 'newDataCount'));
     }
 
     public function dashboard()
@@ -149,7 +150,7 @@ class MahasiswaController extends Controller
     }
     $mahasiswa->save();
 
-    return redirect()->route('home')->with('success', "Data berhasil ditambahkan! Jumlah anggota yang mengisi: $anggotaCount");
+    return redirect()->route('home')->with('success', "Data berhasil ditambahkan! Jumlah mahasiswa yang mengisi: $anggotaCount");
     }
 
     public function tampilform($nim) {

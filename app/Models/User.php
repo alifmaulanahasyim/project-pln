@@ -46,4 +46,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function movedMahasiswas()
+    {
+        return $this->hasMany(MovedMahasiswa::class, 'user_id');
+    }
+    public function mahasiswas()
+    {
+    return $this->hasMany(Mahasiswa::class, 'user_id');
+    }
 }

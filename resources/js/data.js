@@ -196,3 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateDivisiCounts();
     updateStatusCountsByDivision();
 });
+setTimeout(function() {
+    var alert = document.getElementById('pending-alert');
+    if(alert) alert.style.display = 'none';
+}, 5000);
