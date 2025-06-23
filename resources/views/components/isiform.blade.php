@@ -8,21 +8,33 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    
     @vite(['resources/css/inputdivisi.css', 'resources/js/app.js'])
 </head>
 
-<body class="bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 min-h-screen py-8 px-4" x-data="{ isOpen: false }">
-    <main class="max-w-4xl mx-auto">
-        <div class="container mx-auto bg-white shadow-2xl rounded-2xl overflow-hidden backdrop-blur-xl">
+<body class="gradient-bg" x-data="{ isOpen: false, expanded: false, currentStep: 1, showSuccess: false }">
+    <main class="max-w-5xl mx-auto px-4 py-8 relative z-10">
+        <div class="glass-card rounded-3xl overflow-hidden">
             <!-- Header Section -->
-            <div class="bg-gradient-to-r from-blue-700 to-blue-900 p-8 text-white relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-full h-full opacity-10">
-                    <div class="absolute -top-20 -left-20 w-64 h-64 rounded-full bg-blue-400"></div>
-                    <div class="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-blue-500"></div>
-                </div>
-                <div class="relative z-10">
-                    <h1 class="text-center text-4xl font-bold">Formulir Pendaftaran Magang</h1>
-                    <p class="text-center mt-3 text-blue-100 text-lg"> PLN Nusantara Power Unit Pembangkit Belawan</p>
+            <div class="header-bg p-12 text-white relative">
+                <div class="floating-elements"></div>
+                <div class="relative z-10 text-center">
+                    <div class="mb-6">
+                        <div class="inline-flex items-center justify-center w-20 h-20 bg-white/20 rounded-full mb-4 backdrop-blur-sm">
+                            <i class="fas fa-graduation-cap text-3xl"></i>
+                        </div>
+                    </div>
+                    <h1 class="text-5xl font-bold mb-4 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+                        Formulir Pendaftaran Magang
+                    </h1>
+                    <p class="text-xl text-blue-100 font-light">
+                        PT PLN Nusantara Power Unit Pembangkit Belawan
+                    </p>
+                    <div class="mt-8 flex justify-center">
+                        <div class="bg-white/10 backdrop-blur-sm rounded-full px-6 py-2">
+                            <span class="text-sm font-medium">✨ Sistem Pendaftaran Digital</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -54,16 +66,30 @@
                     @csrf
 
                     <!-- Progress Indicator -->
-                    <div class="mb-8">
-                        <div class="w-full bg-gray-200 rounded-full h-2.5">
-                            <div class="bg-blue-600 h-2.5 rounded-full w-0 transition-all duration-500" id="progress-bar"></div>
-                        </div>
-                        <div class="flex justify-between mt-2 text-sm text-gray-500">
-                            <span>Informasi Ketua</span>
-                            <span>Informasi Anggota</span>
-                            <span>Akademik</span>
-                            <span>Selesai</span>
-                        </div>
+                    <div class="px-8 py-6 bg-gradient-to-r from-gray-50 to-white">
+                                <div class="mb-4">
+                                    <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                                        <div class="progress-bar w-1/4" id="progress-bar"></div>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between text-sm font-medium text-gray-600">
+                                    <span class="flex items-center">
+                                        <span class="w-6 h-6 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full text-white text-xs flex items-center justify-center mr-2">1</span>
+                                        Ketua Tim
+                                    </span>
+                                    <span class="flex items-center">
+                                        <span class="w-6 h-6 bg-gray-300 rounded-full text-white text-xs flex items-center justify-center mr-2">2</span>
+                                        Anggota
+                                    </span>
+                                    <span class="flex items-center">
+                                        <span class="w-6 h-6 bg-gray-300 rounded-full text-white text-xs flex items-center justify-center mr-2">3</span>
+                                        Akademik
+                                    </span>
+                                    <span class="flex items-center">
+                                        <span class="w-6 h-6 bg-gray-300 rounded-full text-white text-xs flex items-center justify-center mr-2">4</span>
+                                        Selesai
+                                    </span>
+                                </div>
                     </div>
 
                     <!-- Info Cards -->

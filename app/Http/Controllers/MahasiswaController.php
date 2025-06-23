@@ -6,16 +6,20 @@ use GDText\Box;
 use App\Models\Mahasiswa;
 use App\Models\MovedMahasiswa; // Import the MovedMahasiswa model
 use App\Models\Histori; // Import the Histori model
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Dashboard;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class MahasiswaController extends Controller
 {
     public function index()
     {
         $data = Mahasiswa::all();
-        return view("data", compact('data'));
+        $newData = Mahasiswa::where('status', 'Pending')->orderBy('created_at', 'desc')->get();
+        $users = User::all();
+        return view("data", compact('data', 'newData', 'users'));
     }
 
     public function dashboard()
@@ -104,6 +108,29 @@ class MahasiswaController extends Controller
             'mulai_magang' => 'nullable|date', // Validation for mulai magang
             'selesai_magang' => 'nullable|date', // Validation for selesai magang
         ]);
+
+        // Validasi nama tidak boleh duplikat di seluruh kolom nama mahasiswa
+        $allNames = [
+            $request->nama,
+            $request->nama2,
+            $request->nama3,
+            $request->nama4,
+            $request->nama5,
+            $request->nama6,
+            $request->nama7,
+        ];
+        foreach ($allNames as $name) {
+            if ($name && Mahasiswa::where('nama', $name)
+                ->orWhere('nama2', $name)
+                ->orWhere('nama3', $name)
+                ->orWhere('nama4', $name)
+                ->orWhere('nama5', $name)
+                ->orWhere('nama6', $name)
+                ->orWhere('nama7', $name)
+                ->exists()) {
+                return back()->withErrors(['nama' => 'Nama ' . $name . ' sudah terdaftar sebagai mahasiswa magang.'])->withInput();
+            }
+        }
 
         // Simpan data mahasiswa
         $anggotaCount = 0;

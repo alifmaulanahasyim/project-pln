@@ -235,12 +235,11 @@
                         <i class="fas fa-times mr-2"></i>
                         Batal
                     </button>
-                    <button id="sendMessageBtn" type="button"
+                    <button id="wa-custom-message" type="button"
                         class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-200 flex items-center">
                         <i class="fas fa-paper-plane mr-2"></i>
                         Kirim Pesan WhatsApp
                     </button>
-                    
                     <button id="submit-button" type="submit"
                         class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center">
                         <i class="fas fa-save mr-2"></i>
@@ -251,29 +250,55 @@
         </div>
     </main>
 </body>
+<!-- Modal Custom WhatsApp Message -->
+<div id="waCustomModal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-40 hidden">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative">
+        <button id="closeWaModal" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
+        <h2 class="text-xl font-bold mb-4 text-center text-green-700">Kirim Pesan WhatsApp</h2>
+        <textarea id="waCustomInput" rows="4" class="w-full border border-gray-300 rounded-md p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-green-400" placeholder="Tulis pesan custom di sini..."></textarea>
+        <div class="flex justify-end">
+            <button id="sendWaCustomBtn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md font-semibold">Kirim & Simpan</button>
+        </div>
+    </div>
+</div>
 <script>
-    document.getElementById('submit-button').addEventListener('click', function (e) {
+    // Modal logic
+    const waModal = document.getElementById('waCustomModal');
+    const waSend = document.getElementById('sendWaCustomBtn');
+    const waInput = document.getElementById('waCustomInput');
+    const waClose = document.getElementById('closeWaModal');
+    const submitBtn = document.getElementById('submit-button');
+    const form = document.getElementById('data-pendaftaran-form');
+
+    submitBtn.addEventListener('click', function (e) {
         e.preventDefault();
-
-        const confirmSend = confirm("Yakin ingin mengirim pesan WhatsApp dan menyimpan data?");
-        if (!confirmSend) return;
-
-        const form = document.getElementById('data-pendaftaran-form');
+        waModal.classList.remove('hidden');
+        waInput.value = '';
+        waInput.focus();
+    });
+    waClose.addEventListener('click', function () {
+        waModal.classList.add('hidden');
+    });
+    waSend.addEventListener('click', function () {
+        const customMessage = waInput.value.trim();
+        if (!customMessage) {
+            waInput.focus();
+            waInput.classList.add('border-red-500');
+            return;
+        }
+        waInput.classList.remove('border-red-500');
         const nim = '{{ $data->nim }}';
-
         fetch(`/mahasiswa/${nim}/nohp`)
             .then(response => response.json())
             .then(data => {
                 if (data.nohp) {
-                    const phoneNumber = data.nohp.replace(/^0/, '62'); // Replace starting 0 with 62
-                    const message = "Selamat anda telah diterima magang di PT PLN Nusantara Power Unit Pembangkit Belawan";
-                    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-
+                    const phoneNumber = data.nohp.replace(/^0/, '62');
+                    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(customMessage)}`;
                     window.open(whatsappUrl, '_blank');
-
+                    waModal.classList.add('hidden');
                     setTimeout(() => {
                         form.submit();
-                    }, 1000);
+                    }, 500);
                 } else {
                     alert('Nomor HP tidak ditemukan');
                 }
@@ -282,6 +307,9 @@
                 console.error('Error:', error);
                 alert('Gagal mengambil nomor HP');
             });
+    });
+    waModal.addEventListener('click', function(e) {
+        if (e.target === waModal) waModal.classList.add('hidden');
     });
 </script>
 

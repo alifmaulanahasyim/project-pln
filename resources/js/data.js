@@ -1,5 +1,7 @@
 let isStatusSorted = false;
 let isDivisiSorted = false;
+let isNewestSorted = false;
+let isOldestSorted = false;
 let originalTbodyHTML = '';
 
 function confirmDelete(button) {
@@ -132,12 +134,50 @@ function sortTable(order) {
     }
 
     // Sort by date (newest or oldest)
-    const rows = Array.from(tbody.querySelectorAll("tr"));
-    rows.sort((a, b) => {
-        const dateA = new Date(a.getAttribute("data-date"));
-        const dateB = new Date(b.getAttribute("data-date"));
-        return order === 'newest' ? dateB - dateA : dateA - dateB;
-    });
+    if (order === 'newest') {
+        if (!isNewestSorted) {
+            const rows = Array.from(tbody.querySelectorAll("tr"));
+            rows.sort((a, b) => {
+                const dateA = new Date(a.getAttribute("data-date"));
+                const dateB = new Date(b.getAttribute("data-date"));
+                return dateB - dateA;
+            });
+            tbody.innerHTML = '';
+            rows.forEach(row => tbody.appendChild(row));
+            isNewestSorted = true;
+            isOldestSorted = false;
+        } else {
+            tbody.innerHTML = originalTbodyHTML;
+            isNewestSorted = false;
+        }
+        isStatusSorted = false;
+        isDivisiSorted = false;
+        updateDivisiCounts();
+        updateStatusCountsByDivision();
+        return;
+    }
+    if (order === 'oldest') {
+        if (!isOldestSorted) {
+            const rows = Array.from(tbody.querySelectorAll("tr"));
+            rows.sort((a, b) => {
+                const dateA = new Date(a.getAttribute("data-date"));
+                const dateB = new Date(b.getAttribute("data-date"));
+                return dateA - dateB;
+            });
+            tbody.innerHTML = '';
+            rows.forEach(row => tbody.appendChild(row));
+            isOldestSorted = true;
+            isNewestSorted = false;
+        } else {
+            tbody.innerHTML = originalTbodyHTML;
+            isOldestSorted = false;
+        }
+        isStatusSorted = false;
+        isDivisiSorted = false;
+        updateDivisiCounts();
+        updateStatusCountsByDivision();
+        return;
+    }
 
     tbody.innerHTML = '';
     rows.forEach(row => tbody.appendChild(row));

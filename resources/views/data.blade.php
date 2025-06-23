@@ -39,6 +39,14 @@
                     </button>
                 </div>
 
+                @if(isset($newData) && $newData->count() > 0)
+                    <div class="alert alert-warning d-flex align-items-center mb-4" role="alert">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <div>
+                            Ada {{ $newData->count() }} data mahasiswa baru dengan status <b>Pending</b> yang harus dicek admin!
+                        </div>
+                    </div>
+                @endif
             
                 <div class="table-container">
                     <table class="table table-hover" id="mahasiswaTable">

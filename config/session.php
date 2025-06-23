@@ -6,7 +6,7 @@ return [
 
     'driver' => env('SESSION_DRIVER', 'database'), // Ubah sesuai kebutuhan
 
-    'lifetime' => 720, // Set session lifetime to 12 hours
+    'lifetime' => 120, // Set session lifetime to 12 hours
     
     'expire_on_close' => false, // Keep session active even after closing the browser
 

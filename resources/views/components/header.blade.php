@@ -32,7 +32,6 @@
             <a href="/" class="text-sm/6 font-semibold text-gray-900">Home</a>  
             <a href="/about" class="text-sm/6 font-semibold text-gray-900">About</a>   
             <a href="/divisi" class="text-sm/6 font-semibold text-gray-900">Divisi</a>   
-            <a href="/" class="text-sm/6 font-semibold text-gray-900">Sertifikat Magang</a>
             <a href="/moved" class="text-sm/6 font-semibold text-gray-900">Histori Magang</a>
           </div>
             <div class="hidden lg:flex lg:flex-1 lg:justify-end">

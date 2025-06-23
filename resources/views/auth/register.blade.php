@@ -41,7 +41,7 @@
                           autocomplete="new-password"
                           maxlength="8"
             />
-            <p class="text-xs text-gray-500 mt-1">Password must be at most 8 characters long.</p>
+            <p class="text-xs text-gray-500 mt-1">Password must be between 6 and 8 characters long.</p>
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 

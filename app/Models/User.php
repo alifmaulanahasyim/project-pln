@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role', // Tambahkan role untuk membedakan antara admin dan mahasiswa
     ];
 
     /**
@@ -44,11 +45,5 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-
-    // Relasi ke tabel mahasiswas
-    public function mahasiswas()
-    {
-        return $this->hasMany(Mahasiswa::class, 'user_id', 'id');
     }
 }

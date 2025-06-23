@@ -4,12 +4,16 @@ use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MovedController;
 use App\Http\Controllers\VisionMissionController;
 use App\Http\Controllers\DivisiController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Middleware\AdminMiddleware; // Import your middleware
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 // Routes for mahasiswa
+Route::get('/', function () {
+    return redirect()->route('login');
+})->middleware('guest');
 Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/stat', [MahasiswaController::class, 'index'])->name('stat');
@@ -49,6 +53,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/history/{nim}', [MovedController::class, 'delete'])->name('history.delete');
     Route::get('/admin/vision-mission/edit', [VisionMissionController::class, 'edit'])->name('admin.vision_mission.edit');
     Route::post('/admin/vision-mission/update', [VisionMissionController::class, 'update'])->name('admin.vision_mission.update');
+    Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
+    Route::get('/admin/users/{id}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
+    Route::put('/admin/users/{id}', [AdminController::class, 'updateUser'])->name('admin.users.update');
+    Route::delete('/admin/users/{id}', [AdminController::class, 'deleteUser'])->name('admin.users.delete');
+   
 });
 
 require __DIR__.'/auth.php';
