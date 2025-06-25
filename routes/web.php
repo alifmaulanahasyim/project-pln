@@ -28,6 +28,10 @@ Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
     Route::get('/status/{nim}', [MahasiswaController::class, 'show'])->name('status.show');
     Route::get('/about', [VisionMissionController::class, 'index'])->name('about');
     Route::get('/visimisi', [VisionMissionController::class, 'index'])->name('visimisi');
+    // Route resource untuk laporan harian
+    Route::resource('mahasiswa/laporanharian', App\Http\Controllers\LaporanHarianController::class, [
+        'as' => 'laporan-harian'
+    ]);
 });
 
 // Routes for admin

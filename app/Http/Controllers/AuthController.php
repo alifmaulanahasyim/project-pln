@@ -62,4 +62,26 @@ class AuthController extends Controller
 
         return redirect()->route('data');
     }
+    public function authenticated(Request $request, $user)
+    {
+        // Cek apakah user adalah mahasiswa
+        if ($user->role === 'mahasiswa') {
+            // Cari data mahasiswa berdasarkan user_id dan status "Diterima"
+            $mahasiswa = \App\Models\Mahasiswa::where('user_id', $user->id)
+                ->where('status', 'Diterima')
+                ->first();
+
+            // Jika mahasiswa ditemukan dan statusnya "Diterima"
+            if ($mahasiswa) {
+                // Redirect ke halaman laporan harian
+                return redirect()->route('laporan-harian.index');
+            } else {
+                // Jika belum diterima, bisa redirect ke halaman info atau dashboard
+                return redirect()->route('home')->with('error', 'Akses laporan harian hanya untuk mahasiswa yang sudah diterima.');
+            }
+        }
+
+        // Jika bukan mahasiswa, redirect ke halaman default (misal admin dashboard)
+        return redirect()->intended(route('home'));
+    }
 }
