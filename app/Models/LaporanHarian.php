@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class LaporanHarian extends Model
 {
+     protected $table = 'laporan_harian'; // Ganti sesuai nama tabel di database Anda
     protected $fillable = ['user_id', 'mahasiswa_nim', 'tanggal', 'kegiatan'];
     protected $casts = [
         'tanggal' => 'date',
@@ -19,4 +20,5 @@ class LaporanHarian extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    
 }

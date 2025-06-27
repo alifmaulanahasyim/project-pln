@@ -14,8 +14,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect()->route('login');
 })->middleware('guest');
+Route::get('login', [App\Http\Controllers\AuthController::class, 'showLoginForm'])->name('login');
+Route::post('login', [App\Http\Controllers\AuthController::class, 'login']);
+
 Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::resource('mahasiswa/laporanharian', App\Http\Controllers\LaporanHarianController::class, [
+        'as' => 'laporan-harian'
+    ]);
     Route::get('/stat', [MahasiswaController::class, 'index'])->name('stat');
     Route::get('/divisi', fn() => view('divisi'))->name('divisi');
     Route::get('/form', [MahasiswaController::class, 'tambahform'])->name('form');
@@ -28,10 +34,6 @@ Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
     Route::get('/status/{nim}', [MahasiswaController::class, 'show'])->name('status.show');
     Route::get('/about', [VisionMissionController::class, 'index'])->name('about');
     Route::get('/visimisi', [VisionMissionController::class, 'index'])->name('visimisi');
-    // Route resource untuk laporan harian
-    Route::resource('mahasiswa/laporanharian', App\Http\Controllers\LaporanHarianController::class, [
-        'as' => 'laporan-harian'
-    ]);
 });
 
 // Routes for admin

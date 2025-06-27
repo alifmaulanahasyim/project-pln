@@ -25,7 +25,10 @@ class Mahasiswa extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
-
+public function laporanHarian()
+{
+    return $this->hasMany(LaporanHarian::class, 'mahasiswa_nim', 'nim');
+}
     // Define the relationship with the Histori model
     
 

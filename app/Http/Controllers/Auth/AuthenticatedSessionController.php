@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use App\Providers\RouteServiceProvider;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -17,37 +18,31 @@ class AuthenticatedSessionController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $credentials = $request->validate([
+        $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials, $request->filled('remember'))) {
+        if (Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
             $request->session()->regenerate();
 
             $user = Auth::user();
-
-            // Tambahkan session khusus untuk mahasiswa yang memiliki user_id sesuai id user yang login
-            $mahasiswa = \App\Models\Mahasiswa::where('user_id', $user->id)->first();
-            if ($mahasiswa) {
-                session([
-                    'mahasiswa_user_id' => $user->id,
-                    'mahasiswa_id' => $mahasiswa->user_id, // user_id pada tabel mahasiswas
-                    'mahasiswa_data' => $mahasiswa,
-                ]);
+            if ($user->role === 'mahasiswa') {
+                $mahasiswa = \App\Models\Mahasiswa::where('user_id', $user->id)->first();
+                if ($mahasiswa && $mahasiswa->status === 'Diterima') {
+                    return redirect()->route('laporan-harian.laporanharian.index');
+                } else {
+                    // Pending/Ditolak ke home
+                    return redirect()->route('home');
+                }
             }
-
-            // Redirect based on role
-            if ($user->role === 'admin') {
-                return redirect('/data'); // Admin dashboard
-            } else {
-                return redirect('/'); // Mahasiswa home page
-            }
+            // Default redirect for non-mahasiswa
+            return redirect()->intended(RouteServiceProvider::HOME);
         }
 
         return back()->withErrors([
-            'email' => 'Akun anda tidak ditemukan atau password salah.',
-        ])->onlyInput('email');
+            'email' => 'The provided credentials do not match our records.',
+        ]);
     }
 
 
