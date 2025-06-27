@@ -1,4 +1,3 @@
-{{-- resources/views/laporan-harian/create.blade.php --}}
 @php use Carbon\Carbon; @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -294,8 +293,8 @@
                         <i class="fas fa-user-check text-green-600 text-xl"></i>
                     </div>
                     <h4 class="font-semibold text-gray-700">Status</h4>
-                   @if(isset($sudahAda) && $sudahAda)
-                        <p class="text-lg font-semibold text-yellow-600 mt-2">Anda Sudah Memasukkan Laporan Harian</p>
+                    @if(isset($sudahAda) && $sudahAda)
+                        <p class="text-lg font-semibold text-yellow-600 mt-2">Laporan anda sudah dimasukkan</p>
                     @else
                         <p class="text-lg font-semibold text-green-600 mt-2">Siap Input</p>
                     @endif
@@ -400,7 +399,6 @@
             });
             document.getElementById('current-time').textContent = timeString;
         }
-        document.getElementById('current-time').textContent = timeString + ' WIB';
 
         // Update time every minute
         setInterval(updateTime, 60000);
