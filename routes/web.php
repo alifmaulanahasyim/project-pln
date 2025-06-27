@@ -14,10 +14,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect()->route('login');
 })->middleware('guest');
-Route::get('login', [App\Http\Controllers\AuthController::class, 'showLoginForm'])->name('login');
-Route::post('login', [App\Http\Controllers\AuthController::class, 'login']);
-
-Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
+    Route::get('login', [App\Http\Controllers\AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [App\Http\Controllers\AuthController::class, 'login']);
+    Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::resource('mahasiswa/laporanharian', App\Http\Controllers\LaporanHarianController::class, [
         'as' => 'laporan-harian'
@@ -63,7 +62,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/users/{id}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
     Route::put('/admin/users/{id}', [AdminController::class, 'updateUser'])->name('admin.users.update');
     Route::delete('/admin/users/{id}', [AdminController::class, 'deleteUser'])->name('admin.users.delete');
-   
+   Route::get('admin/laporanharian', [App\Http\Controllers\Admin\LaporanHarianController::class, 'index'])->name('admin.laporanharian.index');
+Route::get('admin/laporanhariandetail', [App\Http\Controllers\Admin\LaporanHarianController::class, 'all'])->name('admin.laporanhariandetail');
+Route::put('admin/laporanharian/{id}', [App\Http\Controllers\Admin\LaporanHarianController::class, 'update'])->name('admin.laporanharian.update');
+Route::delete('admin/laporanharian/{id}', [App\Http\Controllers\Admin\LaporanHarianController::class, 'destroy'])->name('admin.laporanharian.destroy');
 });
 
 require __DIR__.'/auth.php';

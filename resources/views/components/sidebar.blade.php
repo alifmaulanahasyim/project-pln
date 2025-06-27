@@ -79,6 +79,7 @@
                             ['route' => route('admin.vision_mission.edit'), 'icon' => 'lightbulb', 'label' => 'Visi-Misi', 'color' => 'yellow'],
                             ['route' => route('history.index'), 'icon' => 'history', 'label' => 'Histori', 'color' => 'green'],
                             ['route' => route('admin.users'), 'icon' => 'group', 'label' => 'Users', 'color' => 'indigo'],
+                            ['route' => route('admin.laporanharian.index'), 'icon' => 'fact_check', 'label' => 'Laporan Harian', 'color' => 'teal'],
                         ];
                         
                         $colorClasses = [
@@ -87,6 +88,7 @@
                             'yellow' => 'from-yellow-100 to-yellow-200 text-yellow-600',
                             'green' => 'from-green-100 to-green-200 text-green-600',
                             'indigo' => 'from-indigo-100 to-indigo-200 text-indigo-600',
+                            'teal' => 'from-teal-100 to-teal-200 text-teal-600',
                         ];
                     @endphp
                     

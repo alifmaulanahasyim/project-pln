@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Divisi Management</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- Bootstrap & Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -19,8 +18,8 @@
 
         <!-- Main Content -->
         <div class="container-fluid p-4 flex-grow-1">
-            <div class="text-center mb-4">
-                <h2>Divisi Management</h2>
+            <div class="text-center">
+                <h1 class="page-title">Edit Divisi</h1>
             </div>
 
             {{-- Success Message --}}

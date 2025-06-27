@@ -115,7 +115,7 @@
                                         <!-- New Form to Move Data -->
                                         <form action="/mahasiswa/{{ $row->nim }}/move" method="POST" style="display:inline;">
                                             @csrf
-                                            <button type="submit" class="btn btn-warning" onclick="return confirm('Are you sure you want to move this data?')">
+                                            <button type="submit" class="btn btn-warning" onclick="return confirm('Apakah Anda yakin ingin memindahkan data ini?')">
                                                 <i class="fas fa-arrow-right"></i>
                                             </button>
                                         </form>

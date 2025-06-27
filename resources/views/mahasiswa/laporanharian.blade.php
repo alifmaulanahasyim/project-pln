@@ -70,8 +70,8 @@
                     <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
                         <i class="fas fa-edit text-2xl text-blue-600"></i>
                     </div>
-                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Input Laporan Harian</h2>
-                    <p class="text-gray-600">Masukkan detail kegiatan harian Anda dengan lengkap</p>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Laporan Harian Mahasiswa Magang</h2>
+                    <p class="text-gray-600">PT PLN Nusantara Power Unit Pembangkit Belawan</p>
                 </div>
 
                 @if(isset($mahasiswas))
