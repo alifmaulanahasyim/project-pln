@@ -63,8 +63,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::put('/admin/users/{id}', [AdminController::class, 'updateUser'])->name('admin.users.update');
     Route::delete('/admin/users/{id}', [AdminController::class, 'deleteUser'])->name('admin.users.delete');
    Route::get('admin/laporanharian', [App\Http\Controllers\Admin\LaporanHarianController::class, 'index'])->name('admin.laporanharian.index');
-Route::get('admin/laporanhariandetail', [App\Http\Controllers\Admin\LaporanHarianController::class, 'all'])->name('admin.laporanhariandetail');
-Route::put('admin/laporanharian/{id}', [App\Http\Controllers\Admin\LaporanHarianController::class, 'update'])->name('admin.laporanharian.update');
+Route::get('admin/laporanhariandetail/{nim}', [App\Http\Controllers\Admin\LaporanHarianController::class, 'detail'])->name('admin.laporanhariandetail.mahasiswa');
+   Route::put('admin/laporanharian/{id}', [App\Http\Controllers\Admin\LaporanHarianController::class, 'update'])->name('admin.laporanharian.update');
 Route::delete('admin/laporanharian/{id}', [App\Http\Controllers\Admin\LaporanHarianController::class, 'destroy'])->name('admin.laporanharian.destroy');
 });
 

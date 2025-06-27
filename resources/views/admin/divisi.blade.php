@@ -85,16 +85,17 @@
                                         <td>{{ $divisi->divisi }}</td>
                                         <td>{{ $divisi->sisa }}</td>
                                         <td>
-                                            <form action="{{ route('divisis.destroy', $divisi) }}" method="POST" class="d-inline">
+                           
+                                            <a href="{{ route('divisis.index', ['edit' => $divisi->id]) }}" class="btn btn-sm btn-warning">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        <form action="{{ route('divisis.destroy', $divisi) }}" method="POST" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button onclick="return confirm('Delete?')" class="btn btn-sm btn-danger">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
-                                            </form>
-                                            <a href="{{ route('divisis.index', ['edit' => $divisi->id]) }}" class="btn btn-sm btn-warning">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
+                                        </form>
                                         </td>
                                     </tr>
                                 @endforeach

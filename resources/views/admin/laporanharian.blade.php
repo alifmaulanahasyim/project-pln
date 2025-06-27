@@ -41,11 +41,10 @@
                                     <td>{{ $laporan->mahasiswa->nama ?? '-' }}</td>
                                     <td>{{ $laporan->tanggal->format('d M Y') }}</td>
                                     <td>
-                                        <a href="{{ route('admin.laporanhariandetail') }}" class="btn btn-sm btn-warning">Detail</a>
-                                        <form action="{{ route('admin.laporanharian.destroy', $laporan->id) }}" method="POST" style="display:inline;">
+<a href="{{ route('admin.laporanhariandetail.mahasiswa', $laporan->mahasiswa_nim) }}" class="btn btn-sm btn-info">Detail</a>                                        <form action="{{ route('admin.laporanharian.destroy', $laporan->id) }}" method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus laporan ini?')">Hapus</button>
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus laporan ini?')"> <i class="fas fa-trash"></i></button>
                                         </form>
                                     </td>
                                 </tr>

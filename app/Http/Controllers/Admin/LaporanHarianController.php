@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\LaporanHarian;
+use App\Models\userr;
 
 class LaporanHarianController extends Controller
 {
@@ -46,8 +47,17 @@ class LaporanHarianController extends Controller
         return redirect()->route('admin.laporanharian.index')->with('success', 'Laporan harian berhasil dihapus.');
     }
     public function all()
-{
-    $laporans = \App\Models\LaporanHarian::with('mahasiswa')->orderByDesc('tanggal')->paginate(30);
-    return view('admin.laporanhariandetail', compact('laporans'));
-}
+    {
+        $laporans = \App\Models\LaporanHarian::with('mahasiswa')->orderByDesc('tanggal')->paginate(30);
+        return view('admin.laporanhariandetail', compact('laporans'));
+    }
+    public function detail($nim)
+    {
+        $mahasiswa = \App\Models\Mahasiswa::where('nim', $nim)->firstOrFail();
+        $laporans = \App\Models\LaporanHarian::where('mahasiswa_nim', $nim)
+            ->orderBy('tanggal', 'asc')
+            ->get();
+
+        return view('admin.laporanhariandetail', compact('laporans', 'mahasiswa'));
+    }
 }
