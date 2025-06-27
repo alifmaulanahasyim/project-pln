@@ -1,4 +1,5 @@
 {{-- resources/views/laporan-harian/create.blade.php --}}
+@php use Carbon\Carbon; @endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -293,7 +294,11 @@
                         <i class="fas fa-user-check text-green-600 text-xl"></i>
                     </div>
                     <h4 class="font-semibold text-gray-700">Status</h4>
-                    <p class="text-lg font-semibold text-green-600 mt-2">Siap Input</p>
+                   @if(isset($sudahAda) && $sudahAda)
+                        <p class="text-lg font-semibold text-yellow-600 mt-2">Anda Sudah Memasukkan Laporan Harian</p>
+                    @else
+                        <p class="text-lg font-semibold text-green-600 mt-2">Siap Input</p>
+                    @endif
                 </div>
                 
                 <div class="bg-white rounded-xl p-6 card-shadow text-center">
@@ -301,7 +306,9 @@
                         <i class="fas fa-clock text-purple-600 text-xl"></i>
                     </div>
                     <h4 class="font-semibold text-gray-700">Waktu</h4>
-                    <p class="text-lg font-semibold text-purple-600 mt-2" id="current-time">{{ date('H:i') }}</p>
+                        <p class="text-lg font-semibold text-purple-600 mt-2" id="current-time">
+                            {{ \Carbon\Carbon::now('Asia/Jakarta')->format('H:i') }} WIB
+                        </p>
                 </div>
             </div>
         </div>
@@ -385,6 +392,7 @@
 
         // Update current time
         function updateTime() {
+            
             const now = new Date();
             const timeString = now.toLocaleTimeString('id-ID', { 
                 hour: '2-digit', 
@@ -392,6 +400,7 @@
             });
             document.getElementById('current-time').textContent = timeString;
         }
+        document.getElementById('current-time').textContent = timeString + ' WIB';
 
         // Update time every minute
         setInterval(updateTime, 60000);
