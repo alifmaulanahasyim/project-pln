@@ -6,16 +6,26 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\LaporanHarian;
 use App\Models\userr;
+use Illuminate\Support\Facades\DB;
 
 class LaporanHarianController extends Controller
 {
 
     // Display all laporan harian for admin
-    public function index()
-    {
-        $laporans = LaporanHarian::with('mahasiswa')->orderByDesc('tanggal')->paginate(15);
-        return view('admin.laporanharian', compact('laporans'));
-    }
+public function index()
+{
+    $latestLaporans = \App\Models\LaporanHarian::with('mahasiswa')
+        ->select('laporan_harian.*')
+        ->join(DB::raw('(SELECT mahasiswa_nim, MAX(tanggal) as max_tanggal FROM laporan_harian GROUP BY mahasiswa_nim) as latest'), function($join) {
+            $join->on('laporan_harian.mahasiswa_nim', '=', 'latest.mahasiswa_nim')
+                 ->on('laporan_harian.tanggal', '=', 'latest.max_tanggal');
+        })
+         ->orderByDesc('laporan_harian.tanggal')
+        ->get();
+
+
+    return view('admin.laporanharian', ['laporans' => $latestLaporans]);
+}
 
     // Show edit form
     public function edit($id)

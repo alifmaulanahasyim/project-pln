@@ -152,16 +152,15 @@
                                 NIM Mahasiswa
                             </label>
                             <div class="relative">
-                                <select name="mahasiswa_nim" id="mahasiswa_nim" 
-                                        class="w-full px-4 py-3 pl-12 border-2 border-gray-200 rounded-xl input-focus focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 @error('mahasiswa_nim') border-red-500 @enderror"
-                                        @if(session('sudahAda') || (isset($sudahAda) && $sudahAda)) disabled @endif>
-                                    <option value="">Pilih NIM Mahasiswa</option>
-                                    @foreach($mahasiswas as $mahasiswa)
-                                        <option value="{{ $mahasiswa->nim }}" {{ old('mahasiswa_nim') == $mahasiswa->nim ? 'selected' : '' }}>
-                                            {{ $mahasiswa->nim }} - {{ $mahasiswa->nama }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                                @php
+                                    // Ambil mahasiswa dari user login, fallback ke $mahasiswas[0] jika tidak ada
+                                    $mahasiswa = auth()->user()->mahasiswa ?? ($mahasiswas[0] ?? null);
+                                @endphp
+                                <input type="text"
+                                    value="{{ $mahasiswa ? $mahasiswa->nim . ' - ' . $mahasiswa->nama : '-' }}"
+                                    class="w-full px-4 py-3 pl-12 border-2 border-gray-200 rounded-xl bg-gray-100"
+                                    readonly>
+                                <input type="hidden" name="mahasiswa_nim" id="mahasiswa_nim" value="{{ $mahasiswa ? $mahasiswa->nim : '' }}">
                                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                                     <i class="fas fa-id-card text-gray-400"></i>
                                 </div>
@@ -184,7 +183,7 @@
                                 <input type="date" name="tanggal" id="tanggal" 
                                        value="{{ old('tanggal', date('Y-m-d')) }}"
                                        class="w-full px-4 py-3 pl-12 border-2 border-gray-200 rounded-xl input-focus focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 @error('tanggal') border-red-500 @enderror"
-                                       @if(session('sudahAda') || (isset($sudahAda) && $sudahAda)) disabled @endif>
+                                       @if(session('sudahAda') || (isset($sudahAda) && $sudahAda)) disabled @endif readonly>
                                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                                     <i class="fas fa-calendar text-gray-400"></i>
                                 </div>

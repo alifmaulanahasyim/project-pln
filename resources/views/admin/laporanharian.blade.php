@@ -29,7 +29,7 @@
                             <thead class="table-light">
                                 <tr>
                                     <th>ID</th>
-                                    <th>Nama</th>
+                                    <th>Nama Ketua Tim</th>
                                     <th>Tanggal</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -37,11 +37,11 @@
                             <tbody>
                                 @foreach($laporans as $laporan)
                                 <tr>
-                                    <td>{{ $laporan->id }}</td>
+                                    <td>{{ $laporan->mahasiswa->user->id ?? '-' }}</td>
                                     <td>{{ $laporan->mahasiswa->nama ?? '-' }}</td>
                                     <td>{{ $laporan->tanggal->format('d M Y') }}</td>
                                     <td>
-<a href="{{ route('admin.laporanhariandetail.mahasiswa', $laporan->mahasiswa_nim) }}" class="btn btn-sm btn-info">Detail</a>                                        <form action="{{ route('admin.laporanharian.destroy', $laporan->id) }}" method="POST" style="display:inline;">
+                                    <a href="{{ route('admin.laporanhariandetail.mahasiswa', $laporan->mahasiswa_nim) }}" class="btn btn-sm btn-info">Detail</a>                                        <form action="{{ route('admin.laporanharian.destroy', $laporan->id) }}" method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus laporan ini?')"> <i class="fas fa-trash"></i></button>
