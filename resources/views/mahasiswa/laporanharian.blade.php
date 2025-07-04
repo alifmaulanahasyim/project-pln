@@ -140,7 +140,13 @@
                         </div>
                     </div>
                 @endif
-
+                @if($sertifikatDikirim)
+    <div class="alert alert-success flex items-center mb-4">
+        <i class="fas fa-certificate mr-2"></i>
+        Sertifikat magang Anda sudah dikirim oleh admin.
+        <a href="{{ route('mahasiswa.sertifikat.download') }}" class="btn btn-primary ml-4">Lihat Sertifikat</a>
+    </div>
+@endif
                 <form action="{{ route('laporan-harian.laporanharian.store') }}" method="POST" class="space-y-8">
                     @csrf
                     <!-- Form Grid -->

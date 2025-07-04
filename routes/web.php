@@ -21,6 +21,7 @@ Route::get('/', function () {
     Route::resource('mahasiswa/laporanharian', App\Http\Controllers\LaporanHarianController::class, [
         'as' => 'laporan-harian'
     ]);
+    Route::get('/mahasiswa/sertifikat', [App\Http\Controllers\SertifikatController::class, 'showMahasiswa'])->name('mahasiswa.sertifikat.download');
     Route::get('/stat', [MahasiswaController::class, 'index'])->name('stat');
     Route::get('/divisi', fn() => view('divisi'))->name('divisi');
     Route::get('/form', [MahasiswaController::class, 'tambahform'])->name('form');
@@ -37,14 +38,17 @@ Route::get('/', function () {
 
 // Routes for admin
 Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin/pilih-sertifikat/{nim}', [App\Http\Controllers\SertifikatController::class, 'pilihForm'])->name('admin.pilih-sertifikat.form');
+Route::post('/admin/pilih-sertifikat/{nim}', [App\Http\Controllers\SertifikatController::class, 'prosesPilih'])->name('admin.pilih-sertifikat.proses');
+    Route::post('/admin/kirim-sertifikat/{nim}', [App\Http\Controllers\SertifikatController::class, 'kirim'])->name('admin.kirim-sertifikat');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('divisis', DivisiController::class);
     Route::get('/data', [MahasiswaController::class, 'index'])->name('data');
-    Route::get('/dashboard', [MahasiswaController::class, 'dashboard'])->name('dashboard');
-    Route::get('/dashboard/edit/{id}', [MahasiswaController::class, 'editDashboard'])->name('dashboard.edit');
-    Route::put('/dashboard/update/{id}', [MahasiswaController::class, 'update'])->name('dashboard.update');
+    // Route::get('/dashboard', [MahasiswaController::class, 'dashboard'])->name('dashboard');
+    // Route::get('/dashboard/edit/{id}', [MahasiswaController::class, 'editDashboard'])->name('dashboard.edit');
+    // Route::put('/dashboard/update/{id}', [MahasiswaController::class, 'update'])->name('dashboard.update');
     Route::get('/tampilform/{nim}', [MahasiswaController::class, 'tampilform'])->name('tampilform');
     Route::post('/updateform/{nim}', [MahasiswaController::class, 'updateform'])->name('updateform');
     Route::delete('/delete/{nim}', [MahasiswaController::class, 'delete'])->name('delete');

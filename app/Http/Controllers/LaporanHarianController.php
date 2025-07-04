@@ -22,7 +22,8 @@ public function index()
     $sudahAda = LaporanHarian::where('mahasiswa_nim', $mahasiswa->nim)
         ->where('tanggal', date('Y-m-d'))
         ->exists();
-    return view('mahasiswa.laporanharian', compact('laporan', 'mahasiswa', 'mahasiswas', 'sudahAda'));
+    $sertifikatDikirim = $mahasiswa->sertifikat_dikirim ?? false;
+    return view('mahasiswa.laporanharian', compact('laporan', 'mahasiswa', 'mahasiswas', 'sudahAda', 'sertifikatDikirim'));
 }
 
     // Show form to create new laporan harian
@@ -114,4 +115,5 @@ public function index()
         $laporan->delete();
         return redirect()->route('laporan-harian.index')->with('success', 'Laporan harian berhasil dihapus.');
     }
+    
 }

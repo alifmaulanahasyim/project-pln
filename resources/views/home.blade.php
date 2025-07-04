@@ -78,6 +78,7 @@
             animation: shimmer 3s ease-in-out infinite;
         }
     </style>
+    
 </head>
 
 <body class="bg-gray-100 text-gray-900">
@@ -112,7 +113,7 @@
                     <span class="block bg-clip-text text-transparent animate-shimmer">
                         Informasi
                     </span>
-                    <span class="block bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-yellow-400 to-blue-500 mt-1">
+                    <span class="text-2xl block bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-yellow-400 to-blue-500 mt-1">
                         Mahasiswa Magang
                     </span>
                 </h1>
@@ -228,4 +229,10 @@
 <x-main class="relative slideshow-bg h-screen"/>
 <x-footer/>
 </body>
+<script>
+    // Cegah tombol "Back" kembali ke login
+    if (performance.navigation.type === performance.navigation.TYPE_NAVIGATE) {
+        history.replaceState(null, '', location.href);
+    }
+</script>
 </html>

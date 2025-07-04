@@ -105,6 +105,15 @@
                                         <a href="/tampilform/{{$row->nim}}" class="btn btn-edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
+                                        {{-- <form action="{{ route('admin.kirim-sertifikat', $row->nim) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            <button type="submit" class="btn btn-success" onclick="return confirm('Kirim sertifikat ke mahasiswa ini?')">
+                                                <i class="fas fa-certificate"></i> Kirim Sertifikat
+                                            </button>
+                                        </form> --}}
+<a href="{{ route('admin.pilih-sertifikat.form', ['nim' => $row->nim]) }}" class="btn btn-primary">
+    Pilih Penerima Sertifikat
+</a>
                                         <form action="/delete/{{$row->nim}}" method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
@@ -132,4 +141,7 @@
         </div>
     </div>
 </body>
+<script>
+    history.replaceState(null, '', window.location.href);
+</script>
 </html>

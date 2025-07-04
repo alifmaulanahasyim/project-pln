@@ -19,7 +19,9 @@ class Mahasiswa extends Model
     protected $primaryKey = 'nim'; // NIM as the primary key
     public $incrementing = false; // NIM is not auto-incrementing
     protected $keyType = 'string'; // If NIM is a string
-
+protected $casts = [
+    'sertifikat_dikirim' => 'array',
+];
     // Relasi ke tabel users
     public function user()
     {
