@@ -14,7 +14,7 @@
     <!-- Compact Header -->
     <div class="bg-white shadow-sm py-4 px-4 text-center mb-6">
       <h2 class="text-3xl font-bold">TENTANG</h2>
-      <p class="text-lg"> PLN Nusantara Power Unit Pembangkit Belawan</p>
+      <p class="text-lg">PT PLN Nusantara Power Unit Pembangkit Belawan</p>
     </div>
     
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-1">

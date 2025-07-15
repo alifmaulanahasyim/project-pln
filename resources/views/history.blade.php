@@ -13,7 +13,7 @@
     <x-sidebar></x-sidebar>
     <div class="container-fluid">
         <div class="text-center my-4">
-            <h1 class="page-title">History Mahasiswa Magang</h1>
+            <h1 class="page-title">Histori Mahasiswa Magang</h1>
             <div class="flex flex-wrap justify-center gap-4 mb-6">
                 <button class="btn btn-primary mx-2 px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition duration-200 flex items-center">
                     <i class="fas fa-sort-amount-down-alt mr-2"></i> Sort Newest
@@ -55,9 +55,9 @@
                         </td>
                         <td>
                             <div class="btn-group" role="group">
-                                <a href="{{ route('moved.show', $row->nim) }}" class="btn btn-detail" title="View Details">
+                                {{-- <a href="{{ route('moved.show', $row->nim) }}" class="btn btn-detail" title="View Details">
                                     <i class="fas fa-eye"></i>
-                                </a>
+                                </a> --}}
                                 <a href="{{ route('historytampil.edit', $row->nim) }}" class="btn btn-edit" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </a>

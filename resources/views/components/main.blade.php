@@ -24,7 +24,7 @@
     <div class="absolute inset-0 bg-black opacity-50"></div>
     <div class="relative text-center z-10">
       <h1 class="text-balance text-3xl font-semibold tracking-tight text-white sm:text-5xl">
-        PT PLN Nusantara Power Unit Pembangkit Belawan <br> Sistem Informasi Penerimaan Mahasiswa Magang 
+        PT PLN Nusantara Power Unit Pembangkit Belawan <br> Portal Penerimaan Mahasiswa Magang 
       </h1>
       <p class="mt-8 text-pretty text-base font-medium text-gray-300 sm:text-lg/6">
         Isi formulir dibawah ini jika ingin melaksanakan magang di PT PLN Nusantara Power UP Belawan
@@ -54,10 +54,10 @@
       <div class="absolute inset-0 bg-black bg-opacity-50" @click="open = false"></div>
       <div class="relative bg-white rounded-lg shadow-lg w-4/5 sm:w-2/3 max-h-3/4 overflow-hidden z-50">
         <div class="px-6 py-4 border-b border-gray-300">
-          <h2 class="text-xl font-bold text-gray-800 text-center">KETENTUAN</h2>
+          <h2 class="text-xl font-bold text-gray-800 text-center">SYARAT DAN KETENTUAN</h2>
         </div>
         <div class="px-6 py-4 overflow-y-auto max-h-60 no-scrollbar">
-          <p class="text-sm text-gray-700">Setelah diterima, ketentuan berikut wajib dipatuhi oleh mahasiswa/i yang akan menjalani PKL di PT PLN Nusantara Power UP Belawan. Harap diperhatikan dengan seksama.</p>
+          <p class="text-sm text-gray-700">Setelah diterima, ketentuan berikut wajib dipatuhi oleh mahasiswa/i yang akan menjalani Magang di PT PLN Nusantara Power UP Belawan. Harap diperhatikan dengan seksama.</p>
           <ul class="list-decimal pl-5 space-y-2 text-sm text-gray-700">
             <li>Mahasiswa/i wajib membawa sendiri Alat Pelindung Diri (safety helmet dan safety shoes).</li>
             <li>Mahasiswa/i tidak diperkenankan naik angkutan umum selama magang di PLN UP Belawan.</li>

@@ -109,8 +109,8 @@
 
             <!-- Secondary Navigation -->
             <div class="border-t border-gray-100 pt-4">
-                <h2 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3 px-2 nav-label">Account</h2>
-                <ul class="nav-list secondary-nav space-y-1">
+                
+ 
                     <li class="nav-item group">
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="block">
                             @csrf

@@ -99,9 +99,9 @@
                                 </td>
                                 <td>
                                     <div class="btn-group" role="group">
-                                        <a href="/detail/{{$row->nim}}" class="btn btn-detail">
+                                        {{-- <a href="/detail/{{$row->nim}}" class="btn btn-detail">
                                             <i class="fas fa-eye"></i>
-                                        </a>
+                                        </a> --}}
                                         <a href="/tampilform/{{$row->nim}}" class="btn btn-edit">
                                             <i class="fas fa-edit"></i>
                                         </a>

@@ -12,6 +12,9 @@ class MovedMahasiswa extends Model
 
     protected $guarded = []; // All columns are mass assignable
     protected $primaryKey = 'id'; // Specify the primary key column
+    protected $casts = [
+    'sertifikat_dikirim' => 'array',
+];
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

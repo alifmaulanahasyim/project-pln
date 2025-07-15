@@ -17,7 +17,7 @@ class MovedController extends Controller
     // Method to display details of a specific record
     public function show($nim)
     {
-        $record = MovedMahasiswa::findOrFail($nim); // Fetch the specific record
+        $record = MovedMahasiswa::where('nim', $nim)->firstOrFail();
         return view('detail2', compact('record')); // Pass the record to the detail view
     }
 
@@ -29,7 +29,7 @@ class MovedController extends Controller
 
 public function edit($nim)
 {
-    $record = MovedMahasiswa::findOrFail($nim); // Fetch the specific record
+     $record = MovedMahasiswa::where('nim', $nim)->firstOrFail();
     return view('historytampil', compact('record')); // Pass the record to the edit view
 }
 
@@ -47,7 +47,7 @@ public function update(Request $request, $nim)
         'semester' => 'required|integer|min:1|max:8',
         // Add other validation rules as needed
     ]);
-    $record = MovedMahasiswa::findOrFail($nim); // Fetch the specific record
+ $record = MovedMahasiswa::where('nim', $nim)->firstOrFail();
     $record->update($request->all()); // Update the record   
     return redirect()->route('history.index')->with('success', 'Mahasiswa updated successfully.'); // Redirect to history
 }   

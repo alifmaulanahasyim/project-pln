@@ -33,7 +33,7 @@ class DivisiController extends Controller
         ]);
 
         Divisi::create($validated);
-        return redirect()->route('divisis.index')->with('success', 'Divisi created.');
+        return redirect()->route('divisis.index')->with('success', 'Divisi Berhasil Ditambahkan.');
     }
 
     public function edit(Divisi $divisi)
@@ -49,12 +49,12 @@ class DivisiController extends Controller
         ]);
 
         $divisi->update($validated);
-        return redirect()->route('divisis.index')->with('success', 'Divisi updated.');
+        return redirect()->route('divisis.index')->with('success', 'Divisi Berhasil Edit.');
     }
 
     public function destroy(Divisi $divisi)
     {
         $divisi->delete();
-        return redirect()->route('divisis.index')->with('success', 'Divisi deleted.');
+        return redirect()->route('divisis.index')->with('success', 'Divisi Berhasil Dihapus.');
     }
 }

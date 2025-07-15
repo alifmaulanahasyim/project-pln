@@ -53,10 +53,7 @@
                 <div class="d-flex gap-2">   
                     <div class="input-group">
                         <button id="sortButton" class="btn btn-warning me-2">Sort by Newest</button>
-                        <input type="text" class="form-control" placeholder="Cari Data" id="searchInput">
-                        <button class="btn btn-outline-secondary" type="button">
-                            <i class="fas fa-search"></i>
-                        </button>
+
                     </div>
                 </div>
             </div>

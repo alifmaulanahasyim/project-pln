@@ -21,7 +21,7 @@ class VisionMissionController extends Controller
     public function update(Request $request)
     {
         $request->validate([
-            'vision' => 'required|string|max:255',
+            'vision' => 'required|string',
             'mission' => 'required|string',
         ]);
 

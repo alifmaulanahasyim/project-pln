@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulir PKL Student</title>
+    <title>Formulir Magang Student</title>
     <link href='img/favicon.ico' rel='shortcut icon'>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>

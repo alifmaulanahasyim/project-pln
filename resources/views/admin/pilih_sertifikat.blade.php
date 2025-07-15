@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Certificate Distribution</title>
+    <title>Pilih Sertifikat</title>
     <style>
         * {
             margin: 0;
@@ -231,8 +231,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>📜 Certificate Distribution</h1>
-            <p>Select students to receive certificates</p>
+            <h1>📜 Pilih Penerima Sertifikat</h1>
+            <p>Silahkan Pilih Penerima Sertifikat</p>
             <div class="divider"></div>
         </div>
 
@@ -241,7 +241,7 @@
             
             <div class="selection-counter">
                 <div class="counter-text">
-                    <span id="selected-count">0</span> student(s) selected for certificate distribution
+                    <span id="selected-count">0</span> mahasiswa terpilih untuk menerima sertifikat.
                 </div>
             </div>
 
@@ -257,10 +257,6 @@
                                 <div class="student-name">{{ $anggotaItem['nama'] }}</div>
                                 <div class="student-nim">NIM: {{ $anggotaItem['nim'] }}</div>
                             </div>
-                            <div class="status-badge {{ $checked ? 'status-sent' : 'status-pending' }}">
-                                <span class="icon">{{ $checked ? '✅' : '⏳' }}</span>
-                                {{ $checked ? 'Sent' : 'Pending' }}
-                            </div>
                         </label>
                     </div>
                 @endforeach
@@ -269,7 +265,7 @@
             <div class="submit-section">
                 <button type="submit" class="btn-submit" id="submit-btn">
                     <span class="icon">📤</span>
-                    Send Certificates
+                    Kirim Sertifikat
                 </button>
             </div>
         </form>
@@ -287,10 +283,10 @@
                 
                 if (selectedCount === 0) {
                     submitBtn.disabled = true;
-                    submitBtn.innerHTML = '<span class="icon">📤</span> Select Students First';
+                    submitBtn.innerHTML = '<span class="icon">📤</span> Pilih Penerima Sertifikat';
                 } else {
                     submitBtn.disabled = false;
-                    submitBtn.innerHTML = `<span class="icon">📤</span> Send Certificates (${selectedCount})`;
+                    submitBtn.innerHTML = `<span class="icon">📤</span> Kirim Sertifikat (${selectedCount})`;
                 }
             }
 

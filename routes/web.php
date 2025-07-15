@@ -29,7 +29,7 @@ Route::get('/', function () {
     Route::get('/detail/{nim}', [MahasiswaController::class, 'detail'])->name('detail');
     Route::get('/mahasiswa/moved', [MahasiswaController::class, 'showMoved'])->name('mahasiswa.moved');
     Route::get('/moved', [MovedController::class, 'index'])->name('moved');
-    Route::get('/moved/{nim}', [MovedController::class, 'show'])->name('moved.show');
+Route::get('/moved/{nim}', [MovedController::class, 'show'])->name('moved.show');
     Route::get('/status', [MahasiswaController::class, 'status'])->name('status');
     Route::get('/status/{nim}', [MahasiswaController::class, 'show'])->name('status.show');
     Route::get('/about', [VisionMissionController::class, 'index'])->name('about');

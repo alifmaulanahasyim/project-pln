@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Divisi Management</title>
+    <title>Divisi</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap & Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
@@ -92,7 +92,7 @@
                                         <form action="{{ route('divisis.destroy', $divisi) }}" method="POST" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button onclick="return confirm('Delete?')" class="btn btn-sm btn-danger">
+                                                <button onclick="return confirm('Anda Yakin Menghapus Divisi Ini?')" class="btn btn-sm btn-danger">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
                                         </form>

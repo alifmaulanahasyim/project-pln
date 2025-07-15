@@ -1,8 +1,4 @@
 <x-guest-layout>
-    <div class="text-center mb-6">
-        <h2 class="text-2xl font-bold text-gray-800">Create an Account</h2>
-        <p class="text-sm text-gray-500">Use a Gmail address and a secure password</p>
-    </div>
 
     <form method="POST" action="{{ route('register') }}" class="space-y-5">
         @csrf

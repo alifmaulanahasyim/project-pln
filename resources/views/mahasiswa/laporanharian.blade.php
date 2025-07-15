@@ -1,4 +1,7 @@
 @php use Carbon\Carbon; @endphp
+@php
+    $sertifikatDikirim = $sertifikatDikirim ?? false;
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
