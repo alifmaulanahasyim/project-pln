@@ -111,9 +111,11 @@
                                                 <i class="fas fa-certificate"></i> Kirim Sertifikat
                                             </button>
                                         </form> --}}
-<a href="{{ route('admin.pilih-sertifikat.form', ['nim' => $row->nim]) }}" class="btn btn-primary">
+{{-- <a href="{{ route('admin.pilih-sertifikat.form', ['nim' => $row->nim]) }}" class="btn btn-primary">
     Pilih Penerima Sertifikat
-</a>
+</a> --}}
+<a href="{{ url('/admin/cek-sertifikat') }}" class="btn btn-primary">Cek Sertifikat</a>
+
                                         <form action="/delete/{{$row->nim}}" method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')

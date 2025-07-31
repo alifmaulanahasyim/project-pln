@@ -25,7 +25,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-hover align-middle text-center">
+                        <table class="table table-sm table-bordered table-hover text-center align-middle">
                             <thead class="table-light">
                                 <tr>
                                     <th>ID</th>
@@ -36,18 +36,23 @@
                             </thead>
                             <tbody>
                                 @foreach($laporans as $laporan)
-                                <tr>
-                                    <td>{{ $laporan->mahasiswa->user->id ?? '-' }}</td>
-                                    <td>{{ $laporan->mahasiswa->nama ?? '-' }}</td>
-                                    <td>{{ $laporan->tanggal->format('d M Y') }}</td>
-                                    <td>
-                                    <a href="{{ route('admin.laporanhariandetail.mahasiswa', $laporan->mahasiswa_nim) }}" class="btn btn-sm btn-info">Detail</a>                                        <form action="{{ route('admin.laporanharian.destroy', $laporan->id) }}" method="POST" style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus laporan ini?')"> <i class="fas fa-trash"></i></button>
-                                        </form>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td>{{ $laporan->mahasiswa->user->id ?? '-' }}</td>
+                                        <td>{{ $laporan->mahasiswa->nama ?? '-' }}</td>
+                                        <td>{{ optional($laporan->created_at)->format('d-m-Y') ?? '-' }}</td>
+                                        <td>
+                                            <a href="{{ route('admin.laporanhariandetail.mahasiswa', $laporan->mahasiswa_nim) }}" class="btn btn-info btn-sm me-1">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <form action="{{ route('admin.laporanharian.destroy', $laporan->id) }}" method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus laporan ini?')">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>

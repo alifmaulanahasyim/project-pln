@@ -12,20 +12,21 @@ class LaporanHarianController extends Controller
 {
 
     // Display all laporan harian for admin
-public function index()
-{
-    $latestLaporans = \App\Models\LaporanHarian::with('mahasiswa')
-        ->select('laporan_harian.*')
-        ->join(DB::raw('(SELECT mahasiswa_nim, MAX(tanggal) as max_tanggal FROM laporan_harian GROUP BY mahasiswa_nim) as latest'), function($join) {
-            $join->on('laporan_harian.mahasiswa_nim', '=', 'latest.mahasiswa_nim')
-                 ->on('laporan_harian.tanggal', '=', 'latest.max_tanggal');
-        })
-         ->orderByDesc('laporan_harian.tanggal')
-        ->get();
+    public function index()
+    {
+        $latestLaporans = \App\Models\LaporanHarian::with('mahasiswa')
+            ->select('laporan_harian.*')
+            ->join(DB::raw('
+                (SELECT mahasiswa_nim, MAX(created_at) as latest_created FROM laporan_harian GROUP BY mahasiswa_nim) as latest
+            '), function($join) {
+                $join->on('laporan_harian.mahasiswa_nim', '=', 'latest.mahasiswa_nim')
+                    ->on('laporan_harian.created_at', '=', 'latest.latest_created');
+            })
+            ->orderByDesc('laporan_harian.created_at')
+            ->get();
+        return view('admin.laporanharian', ['laporans' => $latestLaporans]);
+    }
 
-
-    return view('admin.laporanharian', ['laporans' => $latestLaporans]);
-}
 
     // Show edit form
     public function edit($id)
@@ -33,22 +34,6 @@ public function index()
         $laporan = LaporanHarian::with('mahasiswa')->findOrFail($id);
         return view('admin.editlaporanharian', compact('laporan'));
     }
-
-    // Update laporan harian
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'tanggal' => 'required|date',
-            'kegiatan' => 'required|string|min:10',
-        ]);
-        $laporan = LaporanHarian::findOrFail($id);
-        $laporan->update([
-            'tanggal' => $request->tanggal,
-            'kegiatan' => $request->kegiatan,
-        ]);
-        return redirect()->route('admin.laporanharian.index')->with('success', 'Laporan harian berhasil diperbarui.');
-    }
-
     // Delete laporan harian
     public function destroy($id)
     {
@@ -56,16 +41,31 @@ public function index()
         $laporan->delete();
         return redirect()->route('admin.laporanharian.index')->with('success', 'Laporan harian berhasil dihapus.');
     }
-    public function all()
-    {
-        $laporans = \App\Models\LaporanHarian::with('mahasiswa')->orderByDesc('tanggal')->paginate(30);
-        return view('admin.laporanhariandetail', compact('laporans'));
-    }
+   public function all()
+{
+    $laporans = \App\Models\LaporanHarian::with(['mahasiswa' => function($query) {
+        $query->select('id', 'user_id', 'nama', 'nama2', 'nama3', 'nama4', 'nama5', 'nama6', 'nama7');
+    }])
+    ->select('laporan_harian.*')
+    ->join(DB::raw('
+        (SELECT mahasiswa_nim, MAX(created_at) as latest_created 
+         FROM laporan_harian 
+         GROUP BY mahasiswa_nim) as latest
+    '), function($join) {
+        $join->on('laporan_harian.mahasiswa_nim', '=', 'latest.mahasiswa_nim')
+             ->on('laporan_harian.created_at', '=', 'latest.latest_created');
+    })
+    ->orderByDesc('laporan_harian.created_at')
+    ->get();
+
+    return view('admin.laporanhariandetail', compact('laporans'));
+}
+
     public function detail($nim)
     {
         $mahasiswa = \App\Models\Mahasiswa::where('nim', $nim)->firstOrFail();
         $laporans = \App\Models\LaporanHarian::where('mahasiswa_nim', $nim)
-            ->orderBy('tanggal', 'asc')
+->orderBy('created_at', 'asc')
             ->get();
 
         return view('admin.laporanhariandetail', compact('laporans', 'mahasiswa'));

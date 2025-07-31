@@ -3,15 +3,16 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class RoleMiddleware
 {
-    public function handle(Request $request, Closure $next, ...$roles): Response
+    public function handle(Request $request, Closure $next, $role)
     {
-        if (!in_array($request->user()->role, $roles)) {
-            abort(403, 'Unauthorized');
+        if (!Auth::check() || Auth::user()->role !== $role) {
+            return redirect('login')->withErrors(['error' => 'Unauthorized access. You do not have the required role to access this resource.']);
         }
 
         return $next($request);

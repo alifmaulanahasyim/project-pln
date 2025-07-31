@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\LaporanHarian;
 use App\Models\Mahasiswa;
@@ -9,68 +9,107 @@ use Illuminate\Support\Facades\Auth;
 
 class LaporanHarianController extends Controller
 {
-    // Show all laporan harian for the logged-in mahasiswa
-public function index()
-{
-    $user = Auth::user();
-    $mahasiswa = Mahasiswa::where('user_id', $user->id)->where('status', 'Diterima')->first();
-    if (!$mahasiswa) {
-        return redirect()->back()->with('error', 'Akses hanya untuk mahasiswa yang sudah diterima.');
-    }
-    $laporan = LaporanHarian::where('mahasiswa_nim', $mahasiswa->nim)->orderBy('tanggal', 'desc')->get();
-    $mahasiswas = Mahasiswa::where('status', 'Diterima')->get();
-    $sudahAda = LaporanHarian::where('mahasiswa_nim', $mahasiswa->nim)
-        ->where('tanggal', date('Y-m-d'))
-        ->exists();
-    $sertifikatDikirim = $mahasiswa->sertifikat_dikirim ?? false;
-    return view('mahasiswa.laporanharian', compact('laporan', 'mahasiswa', 'mahasiswas', 'sudahAda', 'sertifikatDikirim'));
-}
+        // Show all laporan harian for the logged-in mahasiswa
+    public function index()
+    {
+        $user = Auth::user();
+        $mahasiswa = Mahasiswa::where('user_id', $user->id)->where('status', 'Diterima')->first();
+        if (!$mahasiswa) {
+            return redirect()->back()->with('error', 'Akses hanya untuk mahasiswa yang sudah diterima.');
+        }
 
-    // Show form to create new laporan harian
+        $laporan = LaporanHarian::where('mahasiswa_nim', $mahasiswa->nim)
+        ->whereDate('created_at', Carbon::today())
+            ->first();
+
+        $sudahAda = LaporanHarian::where('mahasiswa_nim', $mahasiswa->nim)
+        ->whereDate('created_at', Carbon::today())
+            ->exists();
+
+        $sertifikatDikirim = $mahasiswa->sertifikat_dikirim ?? false;
+
+    $mahasiswas = Mahasiswa::where('status', 'Diterima')->get();
+
+        return view('mahasiswa.laporanharian', compact('laporan', 'mahasiswa', 'mahasiswas', 'sudahAda', 'sertifikatDikirim'));
+    }
     public function create()
     {
         $user = Auth::user();
-        $mahasiswa = Mahasiswa::where('user_id', $user->id)->where('status', 'Diterima')->first();
-        if (!$mahasiswa) {
-            return redirect()->back()->with('error', 'Akses hanya untuk mahasiswa yang sudah diterima.');
-        }
-        $mahasiswas = Mahasiswa::where('status', 'Diterima')->get();
-        // Cek apakah sudah mengisi laporan hari ini
-       $sudahAda = LaporanHarian::where('mahasiswa_nim', $mahasiswa->nim)
-        ->where('tanggal', date('Y-m-d'))
-        ->exists();
-        return view('mahasiswa.laporanharian', compact('mahasiswa', 'mahasiswas', 'sudahAda'));
-    }
 
-    // Store new laporan harian
+        $laporan = LaporanHarian::where('user_id', $user->id)
+            ->whereDate('created_at', Carbon::today())
+            ->first();
+
+        $sudahAda = $laporan !== null;
+        $mahasiswa = $user->mahasiswa ?? null;
+        $sertifikatDikirim = $user->sertifikat_dikirim ?? false;
+
+        $nims = collect([
+            $mahasiswa->nim,
+            $mahasiswa->nim2,
+            $mahasiswa->nim3,
+            $mahasiswa->nim4,
+            $mahasiswa->nim5,
+            $mahasiswa->nim6,
+            $mahasiswa->nim7,
+        ])->filter();
+
+        return view('laporan-harian.create', compact('nims', 'sudahAda', 'laporan', 'mahasiswa', 'sertifikatDikirim'));
+    }
     public function store(Request $request)
     {
         $user = Auth::user();
-        $mahasiswa = Mahasiswa::where('user_id', $user->id)->where('status', 'Diterima')->first();
+
+        // Ensure user has a valid Mahasiswa record
+        $mahasiswa = Mahasiswa::where('user_id', $user->id)
+            ->where('status', 'Diterima')
+            ->first();
+
         if (!$mahasiswa) {
             return redirect()->back()->with('error', 'Akses hanya untuk mahasiswa yang sudah diterima.');
         }
-        $sudahAda = LaporanHarian::where('mahasiswa_nim', $mahasiswa->nim)
-            ->where('tanggal', $request->tanggal)
+
+        // Collect all valid NIMs
+        $nims = collect([
+            $mahasiswa->nim,
+            $mahasiswa->nim2,
+            $mahasiswa->nim3,
+            $mahasiswa->nim4,
+            $mahasiswa->nim5,
+            $mahasiswa->nim6,
+            $mahasiswa->nim7,
+        ])->filter();
+
+        $tanggal = Carbon::today();
+
+        // Prevent duplicate submission for today
+        $sudahAda = LaporanHarian::whereIn('mahasiswa_nim', $nims)
+            ->whereDate('created_at', \Carbon\Carbon::today())
             ->exists();
 
         if ($sudahAda) {
-            // Redirect ke halaman create dengan pesan error
-            return redirect()->route('laporan-harian.laporanharian.create')->with('sudahAda', true);
+            return redirect()->route('laporan-harian.laporanharian.index')->with('sudahAda', true);
         }
+
+        // Validate input
         $request->validate([
-            'tanggal' => 'required|date',
-            'kegiatan' => 'required|string',
+            'kegiatan' => 'required|string|min:10',
+            'status_kehadiran' => 'required|array',
         ]);
+
+        // Store laporan for each anggota
+    foreach ($nims as $nim) {
         LaporanHarian::create([
             'user_id' => $user->id,
-            'mahasiswa_nim' => $mahasiswa->nim,
-            'tanggal' => $request->tanggal,
-            'kegiatan' => $request->kegiatan,
+            'mahasiswa_nim' => $nim, // use current anggota's NIM
+            'kegiatan' => $request->input('kegiatan'),
+            'status_kehadiran' => $request->status_kehadiran[$nim] ?? 'hadir', // use their own attendance
         ]);
-       return redirect()->route('laporan-harian.laporanharian.create')->with('success', 'Laporan harian berhasil ditambahkan.');
     }
 
+
+        return redirect()->route('laporan-harian.laporanharian.index')->with('success', 'Laporan dan kehadiran berhasil disimpan untuk semua anggota.');
+    }
     // Show form to edit laporan harian
     public function edit($id)
     {
@@ -86,21 +125,37 @@ public function index()
     // Update laporan harian
     public function update(Request $request, $id)
     {
-        $laporan = LaporanHarian::findOrFail($id);
         $user = Auth::user();
         $mahasiswa = Mahasiswa::where('user_id', $user->id)->where('status', 'Diterima')->first();
+        $laporan = LaporanHarian::findOrFail($id);
+
         if (!$mahasiswa || $laporan->mahasiswa_nim !== $mahasiswa->nim) {
             return redirect()->back()->with('error', 'Akses tidak diizinkan.');
         }
+
         $request->validate([
-            'tanggal' => 'required|date',
-            'kegiatan' => 'required|string',
+            'kegiatan' => 'required|string|min:10',
         ]);
+
         $laporan->update([
-            'tanggal' => $request->tanggal,
             'kegiatan' => $request->kegiatan,
         ]);
-        return redirect()->route('laporan-harian.index')->with('success', 'Laporan harian berhasil diperbarui.');
+    return redirect()->route('laporan-harian.laporanharian.index')->with('success', 'Laporan berhasil diperbarui.');
+    }
+
+    public function showForm()
+    {
+        $today = now()->toDateString();
+        $userId = Auth::id(); // safer and clearer
+        $laporan = LaporanHarian::where('user_id', $userId)
+                                ->where('tanggal', $today)
+                                ->first();
+
+        return view('laporan-harian.form', [
+            'laporan' => $laporan,
+            'sudahAda' => $laporan !== null,
+            'sertifikatDikirim' => false,
+        ]);
     }
 
     // Delete laporan harian
@@ -115,5 +170,6 @@ public function index()
         $laporan->delete();
         return redirect()->route('laporan-harian.index')->with('success', 'Laporan harian berhasil dihapus.');
     }
+    
     
 }

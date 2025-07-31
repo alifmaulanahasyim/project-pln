@@ -6,6 +6,7 @@ use App\Http\Controllers\VisionMissionController;
 use App\Http\Controllers\DivisiController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LaporanHarianController;
 use App\Http\Middleware\AdminMiddleware; // Import your middleware
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -16,11 +17,13 @@ Route::get('/', function () {
 })->middleware('guest');
     Route::get('login', [App\Http\Controllers\AuthController::class, 'showLoginForm'])->name('login');
     Route::post('login', [App\Http\Controllers\AuthController::class, 'login']);
+    
     Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::resource('mahasiswa/laporanharian', App\Http\Controllers\LaporanHarianController::class, [
         'as' => 'laporan-harian'
     ]);
+   Route::put('/laporan-harian/laporanharian/{id}', [LaporanHarianController::class, 'update'])->name('laporan-harian.laporanharian.update');
     Route::get('/mahasiswa/sertifikat', [App\Http\Controllers\SertifikatController::class, 'showMahasiswa'])->name('mahasiswa.sertifikat.download');
     Route::get('/stat', [MahasiswaController::class, 'index'])->name('stat');
     Route::get('/divisi', fn() => view('divisi'))->name('divisi');
@@ -29,7 +32,7 @@ Route::get('/', function () {
     Route::get('/detail/{nim}', [MahasiswaController::class, 'detail'])->name('detail');
     Route::get('/mahasiswa/moved', [MahasiswaController::class, 'showMoved'])->name('mahasiswa.moved');
     Route::get('/moved', [MovedController::class, 'index'])->name('moved');
-Route::get('/moved/{nim}', [MovedController::class, 'show'])->name('moved.show');
+    Route::get('/moved/{nim}', [MovedController::class, 'show'])->name('moved.show');
     Route::get('/status', [MahasiswaController::class, 'status'])->name('status');
     Route::get('/status/{nim}', [MahasiswaController::class, 'show'])->name('status.show');
     Route::get('/about', [VisionMissionController::class, 'index'])->name('about');
@@ -38,6 +41,7 @@ Route::get('/moved/{nim}', [MovedController::class, 'show'])->name('moved.show')
 
 // Routes for admin
 Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin/cek-sertifikat', [AdminController::class, 'cekSertifikatTim']);
     Route::get('/admin/pilih-sertifikat/{nim}', [App\Http\Controllers\SertifikatController::class, 'pilihForm'])->name('admin.pilih-sertifikat.form');
 Route::post('/admin/pilih-sertifikat/{nim}', [App\Http\Controllers\SertifikatController::class, 'prosesPilih'])->name('admin.pilih-sertifikat.proses');
     Route::post('/admin/kirim-sertifikat/{nim}', [App\Http\Controllers\SertifikatController::class, 'kirim'])->name('admin.kirim-sertifikat');

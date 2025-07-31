@@ -230,43 +230,7 @@ class MahasiswaController extends Controller
         }
     }
 
-    public function getsertifikat(Request $request)
-    {
-        // Validasi input
-        $request->validate([
-            'mahasiswa_nim' => 'required|string',
-        ]);
-    
-        // Mengambil data mahasiswa berdasarkan NIM
-        $mahasiswa = Mahasiswa::where('nim', $request->mahasiswa_nim)->first();
-    
-        // Pastikan mahasiswa ditemukan
-        if (!$mahasiswa) {
-            return response()->json(['error' => 'Mahasiswa tidak ditemukan'], 404);
-        }
-    
-        $name = $mahasiswa->nama; // Mengambil nama mahasiswa
-        $im = imagecreatefrompng(public_path('/sertifikat/gambar.png')); // Pastikan path benar
-        $font_family = public_path('font/Gotham-Black.ttf');
-    
-        // Pastikan font ada
-        if (!file_exists($font_family)) {
-            return response()->json(['error' => 'Font tidak ditemukan'], 404);
-        }
-    
-        $box = new Box($im);
-        $box->setFontFace($font_family);
-        $box->setFontColor(new \GDText\Color(0, 0, 0, 0)); // Menggunakan namespace yang benar
-        $box->setFontSize(100);
-        $box->setBox(0, -80, imagesx($im), imagesy($im));
-        $box->setTextAlign('center'); // Corrected this line
-        $box->draw($name); // Moved this line outside of the setTextAlign method
-    
-        header("Content-Type: image/png");
-        imagepng($im);
-        imagedestroy($im); // Menghancurkan gambar untuk membebaskan memori
-    }
-
+   
     public function moveMahasiswa($nim)
 {
     // Find the original record in the mahasiswas table

@@ -74,4 +74,39 @@ public function prosesPilih(Request $request, $nim)
 
     return redirect()->route('admin.laporanharian.index')->with('success', 'Sertifikat berhasil dikirim.');
 }
+public function cekSertifikatTim($nim)
+{
+    $mahasiswa = Mahasiswa::where('nim', $nim)->first();
+
+    if (!$mahasiswa) {
+        return false;
+    }
+
+    $nims = collect([
+        $mahasiswa->nim,
+        $mahasiswa->nim2,
+        $mahasiswa->nim3,
+        $mahasiswa->nim4,
+        $mahasiswa->nim5,
+        $mahasiswa->nim6,
+        $mahasiswa->nim7,
+    ])->filter();
+
+    $satuMingguTerakhir = now()->subDays(7);
+
+    foreach ($nims as $anggotaNim) {
+        $hadir = \App\Models\LaporanHarian::where('mahasiswa_nim', $anggotaNim)
+            ->where('status_kehadiran', 'hadir')
+            ->whereDate('created_at', '>=', $satuMingguTerakhir)
+            ->count();
+
+        if ($hadir < 1) {
+            return false; // Tidak hadir selama 1 minggu
+        }
+    }
+
+    return true;
+}
+
+
 }

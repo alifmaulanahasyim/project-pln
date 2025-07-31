@@ -64,6 +64,7 @@
             <li>Mahasiswa/i wajib mengikuti Standar Prosedur Pelaksanaan Magang Mahasiswa di PT PLN Nusantara Power UP Belawan.</li>
             <li>Mahasiswa/i wajib menyetarakan BPJS Kesehatan atau asuransi kesehatan lainnya.</li>
             <li>Mahasiswa/i wajib menyertakan riwayat penyakit setahun terakhir.</li>
+            <li>Mahasiswa/i wajib menyertakan photocopy surat keterangan izin magang dari kampus.</li>
           </ul>
           <p class="text-sm text-gray-700">Demikian disampaikan untuk dapat diketahui, atas perhatiannya diucapkan terima kasih.</p>
           <div class="mt-4">

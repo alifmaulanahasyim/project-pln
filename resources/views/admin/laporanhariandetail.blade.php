@@ -47,27 +47,49 @@
                 </div>
                 <div class="table-responsive">
                     <table class="min-w-full table-auto border border-gray-200">
-                        <thead class="bg-blue-50">
-                            <tr>
-                                <th class="px-4 py-2 border">ID</th>
-                                <th class="px-4 py-2 border">Nama</th>
-                                <th class="px-4 py-2 border">NIM</th>
-                                <th class="px-4 py-2 border">Tanggal</th>
-                                <th class="px-4 py-2 border">Kegiatan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($laporans as $laporan)
-                            <tr class="hover:bg-blue-50">
-                                <td class="px-4 py-2 border">{{ $laporan->id }}</td>
-                                <td class="px-4 py-2 border">{{ $laporan->mahasiswa->nama ?? '-' }}</td>
-                                <td class="px-4 py-2 border">{{ $laporan->mahasiswa_nim }}</td>
-                                <td class="px-4 py-2 border">{{ $laporan->tanggal instanceof \Carbon\Carbon ? $laporan->tanggal->format('d M Y') : $laporan->tanggal }}</td>
-                                <td class="px-4 py-2 border text-left">{{ $laporan->kegiatan }}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+    <thead class="bg-blue-50">
+        <tr>
+            <th class="px-4 py-2 border">Tanggal</th>
+            <th class="px-4 py-2 border">Nama Anggota</th>
+            <th class="px-4 py-2 border">Kegiatan</th>
+            <th class="px-4 py-2 border">Status Kehadiran</th>
+        </tr>
+    </thead>
+    <tbody>
+        @forelse($laporans as $laporan)
+            @php
+                $tanggal = optional($laporan->created_at)->timezone('Asia/Jakarta')->format('d M Y H:i') ?? '-';
+                $kegiatan = $laporan->kegiatan;
+                $status = $laporan->status_kehadiran;
+
+                $anggotaList = collect([
+                    $laporan->mahasiswa->nama ?? null,
+                    $laporan->mahasiswa->nama2 ?? null,
+                    $laporan->mahasiswa->nama3 ?? null,
+                    $laporan->mahasiswa->nama4 ?? null,
+                    $laporan->mahasiswa->nama5 ?? null,
+                    $laporan->mahasiswa->nama6 ?? null,
+                    $laporan->mahasiswa->nama7 ?? null,
+                ])->filter();
+            @endphp
+
+            @foreach($anggotaList as $anggota)
+                <tr class="hover:bg-blue-50">
+                    <td class="px-4 py-2 border">{{ $tanggal }}</td>
+                    <td class="px-4 py-2 border">{{ $anggota }}</td>
+                    <td class="px-4 py-2 border text-left">{{ $kegiatan }}</td>
+                    <td class="px-4 py-2 border capitalize">{{ $status }}</td>
+                </tr>
+            @endforeach
+        @empty
+            <tr>
+                <td colspan="4" class="px-4 py-2 border text-center text-gray-500">Belum ada laporan</td>
+            </tr>
+        @endforelse
+    </tbody>
+</table>
+
+
                     @if(method_exists($laporans, 'links'))
                         <div class="mt-4">{{ $laporans->links() }}</div>
                     @endif

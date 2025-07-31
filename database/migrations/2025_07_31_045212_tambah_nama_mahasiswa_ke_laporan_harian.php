@@ -9,17 +9,18 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-public function up(): void
+   public function up(): void
 {
-    Schema::table('mahasiswas', function (Blueprint $table) {
-        $table->json('sertifikat_dikirim')->nullable();
+    Schema::table('laporan_harian', function (Blueprint $table) {
+        $table->string('nama_mahasiswa')->nullable();
     });
 }
 
 public function down(): void
 {
-    Schema::table('mahasiswas', function (Blueprint $table) {
-        $table->dropColumn('sertifikat_dikirim');
+    Schema::table('laporan_harian', function (Blueprint $table) {
+        $table->dropColumn('nama_mahasiswa');
     });
 }
+
 };
